@@ -71,7 +71,6 @@ class ZZLeftSide extends React.Component {
   render() {
     const { defaultSelectedKeys } = this.state;
     const { collapsed } = this.props;
-    console.log('zzLeftSide  collapsed  111==== ', collapsed);
     return (
       <Sider
         trigger={null}

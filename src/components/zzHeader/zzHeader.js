@@ -18,7 +18,6 @@ class ZZHeader extends React.Component {
 
   render() {
     const { collapsed, onToggleClick } = this.props;
-    console.log('zzHeader  onToggleClick  222==== ', onToggleClick);
     
     return (
       <header className="zui-header">
