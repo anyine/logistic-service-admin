@@ -4,7 +4,6 @@ import ZZHeader from '../components/zzHeader/zzHeader';
 
 //将状态写入属性
 const mapStateToProps = (state) => {
-	console.log('state.toggleMenuReducer == ', state.toggleMenuReducer);
     return {
         collapsed: state.toggleMenuReducer.collapsed
     }
