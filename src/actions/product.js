@@ -15,7 +15,7 @@ export const getProductList = (url, params) => {
 
 	            dispatch({
 	            	type: SHOW_PRODUCT_LIST,
-	            	data: assign({}, {dataSource: data, loading: true})
+	            	data: assign({}, {dataSource: data, loading: false})
 	            });
 	        })
 		)

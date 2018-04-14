@@ -5,7 +5,7 @@ import ProductList from '../modules/product/component/productList';
 //将状态写入属性
 const mapStateToProps = (state) => {
     return {
-        dataSource: state.productReducer.collapsed,
+        dataSource: state.productReducer.dataSource,
         loading: state.productReducer.loading
     }
 }

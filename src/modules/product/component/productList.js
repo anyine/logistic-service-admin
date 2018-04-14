@@ -102,7 +102,7 @@ class ProductList extends React.Component {
     }
 
   render() {
-    console.log('this.props === ', this.props);
+    console.log('product this.props === ', this.props);
     const { dataSource, loading } = this.props;
 
     return (

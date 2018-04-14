@@ -62,9 +62,9 @@ const Menu = [
 		]
 	}, {
 		key: '2',
-		iconType: 'user',
-		link: '/frame/user/userList',
-		label: '人员管理'
+		iconType: 'solution',
+		link: '/frame/lost/',
+		label: '失物招领'
 	}
 ];
 

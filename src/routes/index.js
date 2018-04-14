@@ -8,8 +8,8 @@ import Frame from '../modules/Frame';
 import Home from '../modules/home/component/home';
 /* 登录 */
 import Login from '../modules/login/component/login';
-/* 人员管理 */
-import UserList from '../modules/user/component/userList';
+/* 失物招领 */
+import Lost from '../modules/lost/component/';
 /* 产品管理 */
 import ProductList from '../containers/productList';
 import ProductDetailInfo from '../modules/product/component/productDetailInfo';
@@ -34,7 +34,7 @@ module.exports = (
         <Route path="/frame" component={Frame}>
             <IndexRoute component={Home}/>
             <route path="home" component={Home} />
-            <route path="user/userList" component={UserList} />
+            <route path="lost" component={Lost} />
             <route path="product/productList" component={ProductList} />
             <route path="product/productDetailInfo/:id" component={ProductDetailInfo} />
             <route path="product/editProduct/:id" component={EditProduct} />
