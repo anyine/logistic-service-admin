@@ -2,10 +2,8 @@ import React from 'react';
 import restUrl from 'RestUrl';
 import './zzEditor.less';
 
-import { EditorState, convertFromRaw, convertToRaw, ContentState } from 'draft-js';
+import { EditorState } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
-import draftToHtml from 'draftjs-to-html';
-import htmlToDraft from 'html-to-draftjs';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 class ZZEditor extends React.Component {
@@ -17,8 +15,8 @@ class ZZEditor extends React.Component {
 		};
 	}
 
-	componentWillMount = () => {
-		const { editorState } = this.props;
+	componentWillReceiveProps = (nextProps) => {
+		const { editorState } = nextProps;
 		if(editorState){
 			this.setState({editorState});
 		}
@@ -52,10 +50,11 @@ class ZZEditor extends React.Component {
 		this.setState({
 			editorState,
 		});
+
+		return this.props.saveEditorState(editorState, this.props.companyId);
 	}
 
     render() {
-	  	console.log('editor this.props === ', this.props);
 	  	const { editorState } = this.state;
 
 	    return (
