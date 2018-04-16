@@ -10,12 +10,12 @@ import Home from '../modules/home/component/home';
 import Login from '../modules/login/component/login';
 /* 失物招领 */
 import Lost from '../modules/lost/component/';
-/* 产品管理 */
-import ProductList from '../modules/product/component/productList';
-import ProductDetailInfo from '../modules/product/component/productDetailInfo';
-import EditProduct from '../modules/product/component/editProduct';
-import AddProduct from '../modules/product/component/addProduct';
-import BrandAdmin from '../modules/product/component/brandAdmin';
+/* 菜单管理 */
+import DishList from '../modules/dish/component/dishList';
+import DishDetailInfo from '../modules/dish/component/dishDetailInfo';
+import EditDish from '../modules/dish/component/editDish';
+import AddDish from '../modules/dish/component/addDish';
+import BrandAdmin from '../modules/dish/component/brandAdmin';
 /* 订单管理 */
 import OrderList from '../modules/order/component/orderList';
 import OrderDetailInfo from '../modules/order/component/orderDetailInfo';
@@ -35,11 +35,11 @@ module.exports = (
             <IndexRoute component={Home}/>
             <route path="home" component={Home} />
             <route path="lost" component={Lost} />
-            <route path="product/productList" component={ProductList} />
-            <route path="product/productDetailInfo/:id" component={ProductDetailInfo} />
-            <route path="product/editProduct/:id" component={EditProduct} />
-            <route path="product/AddProduct" component={AddProduct} />
-            <route path="product/brandAdmin" component={BrandAdmin} />
+            <route path="dish/dishList" component={DishList} />
+            <route path="dish/dishDetailInfo/:id" component={DishDetailInfo} />
+            <route path="dish/editDish/:id" component={EditDish} />
+            <route path="dish/AddDish" component={AddDish} />
+            <route path="dish/brandAdmin" component={BrandAdmin} />
             <route path="order/orderList" component={OrderList} />
             <route path="order/orderDetailInfo/:id" component={OrderDetailInfo} />
             <route path="news/newsList" component={NewsList} />

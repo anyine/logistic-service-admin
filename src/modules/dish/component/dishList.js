@@ -130,8 +130,8 @@ class ProductList extends React.Component {
         <div className="breadcrumb-block">
           <Breadcrumb>
             <Breadcrumb.Item>首页</Breadcrumb.Item>
-            <Breadcrumb.Item>产品管理</Breadcrumb.Item>
-            <Breadcrumb.Item>产品列表</Breadcrumb.Item>
+            <Breadcrumb.Item>菜单管理</Breadcrumb.Item>
+            <Breadcrumb.Item>菜品列表</Breadcrumb.Item>
           </Breadcrumb>
         </div>
         <div className="ibox-title">

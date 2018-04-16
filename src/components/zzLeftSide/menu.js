@@ -12,15 +12,15 @@ const Menu = [
 		children: [
 			{
 				key: '3_1',
-				link: '/frame/product/productList',
+				link: '/frame/dish/dishList',
 				label: '菜单列表'
 			}, {
 				key: '3_2',
-				link: '/frame/product/addProduct',
+				link: '/frame/dish/addDish',
 				label: '添加菜单'
 			}, {
 				key: '3_3',
-				link: '/frame/product/brandAdmin',
+				link: '/frame/dish/brandAdmin',
 				label: '品牌管理'
 			}
 		]
