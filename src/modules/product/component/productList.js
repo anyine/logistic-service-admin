@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { Table, Icon, Divider, Breadcrumb, Menu, Dropdown, Popconfirm, Spin } from 'antd';
+import { Table, Icon, Divider, Breadcrumb, Menu, Dropdown, Popconfirm, Spin, Tabs, message } from 'antd';
 import restUrl from 'RestUrl';
+import ajax from 'Utils/ajax';
 import '../product.less';
-
-const getProductListUrl = restUrl.ADDR + 'Product/getProductList';
+const TabPane = Tabs.TabPane;
+const getProductListUrl = restUrl.ADDR + 'server/getDishList';
 
 class ProductList extends React.Component {
     constructor(props) {
@@ -87,9 +88,29 @@ class ProductList extends React.Component {
     componentWillMount = () => { 
     }
 
-    componentDidMount = () => { 
-      const {getProductList} = this.props;
-      getProductList(getProductListUrl);
+    componentDidMount = () => {
+      this.getProductList();
+    }
+
+    getProductList = () => {
+      ajax.getJSON(getProductListUrl, null, (data) => {
+        if(data.success){ 
+          data =  data.backData;
+          data.map(function(item, index){
+            item.key = index;
+          });
+
+          this.setState({
+            dataSource: data,
+            loading: false
+          });
+        } else {
+          this.setState({
+            loading: false
+          });
+          message.warning(data.backMsg);
+        }
+      });
     }
 
     detailrouter = (id) => {
@@ -102,8 +123,7 @@ class ProductList extends React.Component {
     }
 
   render() {
-    console.log('product this.props === ', this.props);
-    const { dataSource, loading } = this.props;
+    const { dataSource, loading } = this.state;
 
     return (
     <div className="zui-content">
@@ -115,18 +135,28 @@ class ProductList extends React.Component {
           </Breadcrumb>
         </div>
         <div className="ibox-title">
-            <h5>所有产品</h5>
+            <h5>所有菜单</h5>
         </div>
         <div className="ibox-content">
           <Spin spinning={loading}>
-            <Table 
-              bordered={true} 
-              dataSource={dataSource} 
-              columns={this.columns}
-            />
+            <Tabs defaultActiveKey="1">
+              <TabPane tab="一楼食堂" key="1">
+                <Table 
+                  bordered={true} 
+                  dataSource={dataSource} 
+                  columns={this.columns}
+                />
+              </TabPane>
+              <TabPane tab="二楼食堂" key="2">
+                <Table 
+                  bordered={true} 
+                  dataSource={dataSource} 
+                  columns={this.columns}
+                />
+              </TabPane>
+            </Tabs>
           </Spin>
         </div>
-        
     </div>
     );
   }

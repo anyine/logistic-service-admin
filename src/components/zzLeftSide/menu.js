@@ -6,18 +6,18 @@ const Menu = [
 		label: '首页'
 	}, {
 		key: '3',
-		iconType: 'switcher',
+		iconType: 'table',
 		link: '',
-		label: '产品管理',
+		label: '菜单管理',
 		children: [
 			{
 				key: '3_1',
 				link: '/frame/product/productList',
-				label: '产品列表'
+				label: '菜单列表'
 			}, {
 				key: '3_2',
 				link: '/frame/product/addProduct',
-				label: '添加产品'
+				label: '添加菜单'
 			}, {
 				key: '3_3',
 				link: '/frame/product/brandAdmin',

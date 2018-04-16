@@ -1,4 +1,3 @@
-import ajax from 'Utils/ajax';
 import assign from 'lodash/assign';
 
 export const SHOW_PRODUCT_LIST = 'SHOW_PRODUCT_LIST';
@@ -8,15 +7,17 @@ export const getProductList = (url, params) => {
 	return dispatch => {
 		return (
             ajax.getJSON(url, null, (data) => {
-	            data =  eval('(' + data.backData + ')');
-	            data.map(function(item, index){
-	            	item.key = index;
-	            });
+            	if(data.success){	
+		            data =  eval('(' + data.backData + ')');
+		            data.map(function(item, index){
+		            	item.key = index;
+		            });
 
-	            dispatch({
-	            	type: SHOW_PRODUCT_LIST,
-	            	data: assign({}, {dataSource: data, loading: false})
-	            });
+		            dispatch({
+		            	type: SHOW_PRODUCT_LIST,
+		            	data: assign({}, {dataSource: data, loading: false})
+		            });
+            	}
 	        })
 		)
 	}
