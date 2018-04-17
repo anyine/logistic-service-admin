@@ -7,7 +7,7 @@ import '../dish.less';
 const FormItem = Form.Item;
 const Option = Select.Option;
 
-const getProductDetailInfoUrl = restUrl.ADDR + 'Product/getProductInfo';
+const getDishDetailInfoUrl = restUrl.ADDR + 'server/getDishDetail';
 
 const formItemLayout = {
   labelCol: { span: 6 },
@@ -26,191 +26,97 @@ class ProductDetailInfo extends React.Component {
   }
 
   componentDidMount = () => {
-  	this.getProductDetailInfo();
+  	this.getDishDetailInfo();
   }
 
-  //获取产品详情
-  getProductDetailInfo = (id) => {
+  //获取菜品详情
+  getDishDetailInfo = (id) => {
   	let param = {};
   	param.id = this.props.params.id;
-  	ajax.getJSON(getProductDetailInfoUrl, param, (data) => {
+  	ajax.getJSON(getDishDetailInfoUrl, param, (data) => {
   		data =  data.backData;
-  		let attachesFileList = data.attaches.split(',').map(function(item, index){
-  			return 'http://www.xuecheh.com/UpLoadFile/' + item + '.png';
-  		});
-  		let coverAttachesFileList = data.coverAttaches.split(',').map(function(item, index){
-  			return 'http://www.xuecheh.com/UpLoadFile/' + item + '.png';
-  		});
+  		data.dish_img = restUrl.BASE_HOST + 'UpLoadFile/' + data.dish_img + '.png';
 		this.setState({
-			data,
-			attachesFileList,
-			coverAttachesFileList
+			data
 		});
   	});
   }
 
   render() {
-  	let { data, attachesFileList, coverAttachesFileList } = this.state;
+  	let { data } = this.state;
 
     return (
-      <div className="zui-cotent">
+      <div className="zui-content">
       	<div className="breadcrumb-block">
 	    	<Breadcrumb>
 	            <Breadcrumb.Item>首页</Breadcrumb.Item>
-	            <Breadcrumb.Item>产品管理</Breadcrumb.Item>
-	            <Breadcrumb.Item>产品列表</Breadcrumb.Item>
-	            <Breadcrumb.Item>产品详情</Breadcrumb.Item>
+	            <Breadcrumb.Item>菜单管理</Breadcrumb.Item>
+	            <Breadcrumb.Item>菜单列表</Breadcrumb.Item>
+	            <Breadcrumb.Item>菜单详情</Breadcrumb.Item>
 	        </Breadcrumb>
 	    </div>
       	<div className="ibox-title">
-            <h5>产品详情</h5>
+            <h5>菜单详情</h5>
         </div>
         <div className="ibox-content">
 	      	<Form>
-	      		<Divider>封面信息</Divider>
 	      		<Row>
-	      			<Col span={24}>
+	      			<Col span={12}>	    
+				        <FormItem
+				            label="食堂"
+				            {...formItemLayout}
+				        >
+				          	<Select value={data.companyId}>
+					            <Option value={'1'}>一楼食堂</Option>
+					            <Option value={'2'}>二楼食堂</Option>
+					        </Select>
+				        </FormItem>
+				    </Col>
+				    <Col span={12}>
+				        <FormItem
+				            label="用餐时间"
+				            {...formItemLayout}
+				         >
+				         	<Select value={data.dish_type}>
+				                <Option value={'早餐'}>早餐</Option>
+				                <Option value={'午餐'}>午餐</Option>
+				                <Option value={'晚餐'}>晚餐</Option>
+				            </Select>
+				        </FormItem>
+				    </Col>
+			    </Row>
+	      		<Row>
+	      			<Col span={12}>
+				        <FormItem
+				            label="菜品名称"
+				            {...formItemLayout}
+				        >
+				        	<Input value={data.dish_title} disabled />
+				        </FormItem>
+				    </Col>
+	      			<Col span={12}>
 	      				<FormItem
-				            label="封面图片"
-				            labelCol={{span: 3}}
-				            wrapperCol={{span: 21}}
+				            label="菜品图片"
+				            {...formItemLayout}
 				          >
-				            <ul className="unstyled inline detail-imglist">
-				            	{
-				            		coverAttachesFileList.map(function(item, index){
-				            			return (
-				            				<li key={index}>
-				            					<img src={item} />
-				            				</li>
-				            			)
-				            		})
-				            	}
+				          	<ul className="unstyled inline detail-imglist">
+				            	<li>
+	            					<img src={data.dish_img} />
+	            				</li>
 				            </ul>
 				        </FormItem>	      	
 	      			</Col>
 	      		</Row>
-	      		<Divider>基本信息</Divider>
-	      		<Row>
-	      			<Col span={12}>
-				        <FormItem
-				            label="产品名称"
-				            {...formItemLayout}
-				          >
-				            <Input 
-				            	disabled
-				            	value={data.name} 
-				            />
-				        </FormItem>
-				    </Col>
-				    <Col span={12}>
-				        <FormItem
-				            label="产品类别"
-				            {...formItemLayout}
-				          >
-				            <Input 
-				            	disabled
-				            	value={data.type} 
-				            />
-				        </FormItem>
-				    </Col>
-			    </Row>
 			    <Row>
-	      			<Col span={12}>
-				        <FormItem
-				            label="单价"
-				            {...formItemLayout}
-				          >
-				            <InputNumber 
-				            	disabled
-				            	value={data.price}
-				            	precision={2}
-				            	formatter={(value) => value + ' 元'}
-				            	style={{width: '100%'}}
-				            />
-				        </FormItem>
-				    </Col>
-				    <Col span={12}>
-				        <FormItem
-				            label="产品规格"
-				            {...formItemLayout}
-				          >
-				            <Input 
-				            	disabled
-				            	value={data.unit} 
-				            />
-				        </FormItem>
-				    </Col>
-			    </Row>
-			    <Row>
-	      			<Col span={12}>
-				        <FormItem
-				            label="型材品牌"
-				            {...formItemLayout}
-				          >
-				            <Input 
-				            	disabled
-				            	value={data.structuralSection} 
-				            />
-				        </FormItem>
-				    </Col>
-				    <Col span={12}>
-				        <FormItem
-				            label="五金配件"
-				            {...formItemLayout}
-				          >
-				            <Input 
-				            	disabled
-				            	value={data.hardware} 
-				            />
-				        </FormItem>
-				    </Col>
-			    </Row>
-			    <Row>
-	      			<Col span={12}>
-				        <FormItem
-				            label="密封胶品牌"
-				            {...formItemLayout}
-				          >
-				            <Input 
-				            	disabled
-				            	value={data.sealant} 
-				            />
-				        </FormItem>
-				    </Col>
 				    <Col span={12}>
 				        <FormItem
 				            label="说明"
 				            {...formItemLayout}
-				          >
-				            <Input.TextArea
-				            	disabled
-				            	value={data.detail}
-				            	autosize={{minRows: 4, maxRows: 6}} />
+				        >
+				        	<Input.TextArea autosize={{minRows: 4, maxRows: 6}} value={data.dish_content} disabled />
 				        </FormItem>
 				    </Col>
 			    </Row>
-			    <Divider>详情信息</Divider>
-			    <Row>
-	      			<Col span={24}>
-	      				<FormItem
-				            label="详情图片"
-				            labelCol={{span: 3}}
-				            wrapperCol={{span: 21}}
-				          >
-				            <ul className="unstyled inline detail-imglist">
-				            	{
-				            		attachesFileList.map(function(item, index){
-				            			return (
-				            				<li key={index}>
-				            					<img src={item} />
-				            				</li>
-				            			)
-				            		})
-				            	}
-				            </ul>
-				        </FormItem>	      	
-	      			</Col>
-	      		</Row>
 	        </Form>
 	    </div>
       </div>

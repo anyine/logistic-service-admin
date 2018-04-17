@@ -14,7 +14,7 @@ const formItemLayout = {
   wrapperCol: { span: 12 },
 };
 
-class AddProduct extends React.Component {
+class AddDish extends React.Component {
   constructor(props) {
     super(props);
 
@@ -68,7 +68,7 @@ class AddProduct extends React.Component {
     return (
       <div className="zui-content">
       	<div className="ibox-title">
-            <h5>新增产品</h5>
+            <h5>新增菜品</h5>
         </div>
         <div className="ibox-content">
 	      	<Form onSubmit={this.handleSubmit}>
@@ -133,8 +133,8 @@ class AddProduct extends React.Component {
 					            <Upload
 					            	action={restUrl.UPLOAD}
 								    listType={'picture'}
-								    multiple={true}
 								    className='upload-list-inline'
+								    onChange={this.handleChange}
 					            >
 							    	{fileList.length >= 1 ? null : <Button><Icon type="upload" /> 上传</Button>}
 							    </Upload>
@@ -171,9 +171,9 @@ class AddProduct extends React.Component {
   }
 }
 
-const WrappedAddProduct = Form.create()(AddProduct);
-AddProduct.contextTypes = {  
+const WrappedAddDish = Form.create()(AddDish);
+AddDish.contextTypes = {  
      router:React.PropTypes.object  
 } 
 
-export default WrappedAddProduct;
+export default WrappedAddDish;

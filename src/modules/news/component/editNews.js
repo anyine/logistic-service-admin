@@ -14,7 +14,7 @@ const FormItem = Form.Item;
 const Step = Steps.Step;
 const Option = Select.Option;
 
-const getNewsDetailInfoUrl = restUrl.ADDR + 'News/getNewsDetail';
+const getNewsDetailInfoUrl = 'http://www.xuecheh.com/' + 'News/getNewsDetail';
 const saveNewsUrl = restUrl.ADDR + 'News/saveAPNews';
 
 const formItemLayout = {
@@ -55,7 +55,7 @@ class EditNews extends React.Component {
 			uid: -1,
 			name: data.news_cover + '.png',
 			status: 'done',
-			url: restUrl.ADDR + 'UpLoadFile/' + data.news_cover + '.png'
+			url: 'http://www.xuecheh.com/' + 'UpLoadFile/' + data.news_cover + '.png'
 	    }];
 
 		this.setState({

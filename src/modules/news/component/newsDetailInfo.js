@@ -14,7 +14,7 @@ const FormItem = Form.Item;
 const Step = Steps.Step;
 const Option = Select.Option;
 
-const getNewsDetailInfoUrl = restUrl.ADDR + 'News/getNewsDetail';
+const getNewsDetailInfoUrl = 'http://www.xuecheh.com/' + 'News/getNewsDetail';
 
 const formItemLayout = {
   labelCol: { span: 6 },
@@ -45,7 +45,7 @@ class NewsDetailInfo extends React.Component {
   		data.news_content = JSON.parse(data.news_content);
   		data.contentHtml = draftToHtml(data.news_content);
   		console.log('contentHtml === ', data.contentHtml);
-  		data.news_cover = restUrl.ADDR + 'UpLoadFile/' + data.news_cover + '.png';
+  		data.news_cover = 'http://www.xuecheh.com/' + 'UpLoadFile/' + data.news_cover + '.png';
 		this.setState({
 			data,
 			loading: false

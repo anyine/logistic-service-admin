@@ -5,7 +5,7 @@ import ajax from 'Utils/ajax';
 import restUrl from 'RestUrl';
 import '../news.less';
 
-const getNewsListUrl = restUrl.ADDR + 'News/getNewsList';
+const getNewsListUrl = 'http://www.xuecheh.com/' + 'News/getNewsList';
 
 class NewsList extends React.Component {
   constructor(props) {

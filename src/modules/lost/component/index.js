@@ -225,7 +225,7 @@ class EditNews extends React.Component {
 	} = this.state;
 
     return (
-    <div className="zui-cotent">
+    <div className="zui-content">
       	<div className="breadcrumb-block">
 	    	<Breadcrumb>
 	            <Breadcrumb.Item>首页</Breadcrumb.Item>

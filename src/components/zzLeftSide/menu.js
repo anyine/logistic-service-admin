@@ -8,7 +8,7 @@ const Menu = [
 		key: '3',
 		iconType: 'table',
 		link: '',
-		label: '菜单管理',
+		label: '就餐服务管理',
 		children: [
 			{
 				key: '3_1',
@@ -21,43 +21,47 @@ const Menu = [
 			}, {
 				key: '3_3',
 				link: '/frame/dish/brandAdmin',
-				label: '品牌管理'
+				label: '满意度调查管理'
+			}, {
+				key: '3_4',
+				link: '/frame/dish/brandAdmin',
+				label: '健康饮食信息管理'
 			}
 		]
 	}, {
 		key: '4',
 		iconType: 'line-chart',
 		link: '',
-		label: '订单管理',
+		label: '企业官网管理',
 		children: [
 			{
 				key: '4_1',
 				link: '/frame/order/orderList',
-				label: '订单列表'
+				label: '就餐一二楼官网管理'
+			}, {
+				key: '4_2',
+				link: '/frame/order/orderList',
+				label: '住宿一二三栋官网管理'
 			}
 		]
 	}, {
 		key: '5',
 		iconType: 'credit-card',
 		link: '',
-		label: '案例和新闻管理',
+		label: '宿舍公寓管理',
 		children: [
 			{
 				key: '5_1',
 				link: '/frame/news/caseList',
-				label: '案例列表'
+				label: '房源信息管理'
 			}, {
 				key: '5_2',
 				link: '/frame/news/addCase',
-				label: '添加案例'
+				label: '满意度调查管理'
 			}, {
 				key: '5_3',
 				link: '/frame/news/newsList',
-				label: '新闻列表'
-			}, {
-				key: '5_4',
-				link: '/frame/news/addNews',
-				label: '添加新闻'
+				label: '健康生活信息管理'
 			}
 		]
 	}, {
@@ -65,6 +69,18 @@ const Menu = [
 		iconType: 'solution',
 		link: '/frame/lost/',
 		label: '失物招领'
+	}, {
+		key: '6',
+		iconType: 'credit-card',
+		link: '',
+		label: '联系我们',
+		children: [
+			{
+				key: '6_1',
+				link: '/frame/news/caseList',
+				label: '班车信息管理'
+			}
+		]
 	}
 ];
 
