@@ -81,6 +81,8 @@ class ProductList extends React.Component {
             treeData_2: [],
             dataSource_1: [],
             dataSource_2: [],
+            data_1: [],
+            data_2: [],
             visible: false,
             loading: true,
         };
@@ -177,6 +179,8 @@ class ProductList extends React.Component {
             treeData_2,
             dataSource_1,
             dataSource_2,
+            data_1: dataSource_1,
+            data_2: dataSource_2,
             loading: false
           });
         } else {
@@ -199,15 +203,43 @@ class ProductList extends React.Component {
 
     loadTreeNode = (treeData) => {
         return treeData.map((item) => {
-          if(item.children && item.children.length > 0){
+            if(item.children && item.children.length > 0){
+                return (
+                  <TreeNode key={item.key} title={item.title}>
+                    {this.loadTreeNode(item.children)}
+                  </TreeNode>
+                );
+            }
             return (
-              <TreeNode key={item.key} title={item.title}>
-                {this.loadTreeNode(item.children)}
-              </TreeNode>
+                <TreeNode
+                    key={item.key} 
+                    title={item.title} 
+                />
             );
-          }
-          return <TreeNode key={item.key} title={item.title} />; 
         });
+    }
+
+    onTypeSelect = (selectedKeys, e, companyId) => {
+        console.log('selectedKeys ====11=== ', selectedKeys);
+        console.log('e ====11=== ', e);
+        if(companyId === '1'){
+            const data_1 = [...this.state.data_1];
+            this.setState({ dataSource_1: data_1.filter(item => {
+                    if('早餐午餐晚餐'.indexOf(selectedKeys[0]) > -1)
+                        return item.dish_type === selectedKeys[0]
+                    else
+                        return item.id === selectedKeys[0]
+                })
+            });
+        }else if(companyId === '2'){
+            const data_2 = [...this.state.data_2];
+            this.setState({ dataSource_2: data_2.filter(item => {
+                    if('早餐午餐晚餐'.indexOf(selectedKeys[0]) > -1)
+                        return item.dish_type === selectedKeys[0]
+                    else
+                        return item.id === selectedKeys[0]
+                }) });  
+        }else {}
     }
 
   render() {
@@ -236,6 +268,9 @@ class ProductList extends React.Component {
                     <Tree
                         showLine
                         defaultExpandAll
+                        onSelect={(selectedKeys, e) => {
+                            this.onTypeSelect(selectedKeys, e, '1');
+                        }}
                     >
                         {this.loadTreeNode(treeData_1)}
                     </Tree>
@@ -259,6 +294,9 @@ class ProductList extends React.Component {
                     <Tree
                         showLine
                         defaultExpandAll
+                        onSelect={(selectedKeys, e) => {
+                            this.onTypeSelect(selectedKeys, e, '2');
+                        }}
                     >
                         {this.loadTreeNode(treeData_2)}
                     </Tree>
