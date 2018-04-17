@@ -3,7 +3,7 @@ import { Row, Col, Icon, Divider, Breadcrumb, Input, Button, Spin, notification,
 import _ from 'lodash';
 import ajax from 'Utils/ajax';
 import restUrl from 'RestUrl';
-import '../product.less';
+import '../dish.less';
 
 const getBrandGroupUrl = restUrl.ADDR + 'Product/getBrandList';
 const saveBrandUrl = restUrl.ADDR + 'Product/saveBrand';
