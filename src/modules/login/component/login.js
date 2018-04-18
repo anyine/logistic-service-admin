@@ -5,7 +5,6 @@ import ajax from 'Utils/ajax';
 import '../login.less';
 
 import loginBg from 'Img/login-bg.jpg';
-import logo from 'Img/logo.png';
 const FormItem = Form.Item;
 
 const loginUrl = restUrl.ADDR + 'server/login';
@@ -32,6 +31,7 @@ class Login extends React.Component {
         ajax.postJSON(loginUrl, JSON.stringify(param), (data) => {
           if(data.success){
             localStorage.token = data.token;
+            localStorage.userId = data.userId;
             this.context.router.push('/frame/home');
           }else {
             message.error(data.backMsg);

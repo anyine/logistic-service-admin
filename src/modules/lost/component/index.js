@@ -64,40 +64,36 @@ class EditNews extends React.Component {
 
 		      	if(item.companyId === '1'){
 		      		this.setState({
-						editorState_1: editorState,
-						loading: false
+						editorState_1: editorState
 					});
 		      	} else if(item.companyId === '2'){
 		      		this.setState({
-						editorState_2: editorState,
-						loading: false
+						editorState_2: editorState
 					});
 		      	} else if(item.companyId === '3'){
 		      		this.setState({
-						editorState_3: editorState,
-						loading: false
+						editorState_3: editorState
 					});
 		      	} else if(item.companyId === '4'){
 		      		this.setState({
-						editorState_4: editorState,
-						loading: false
+						editorState_4: editorState
 					});
 		      	} else if(item.companyId === '5'){
 		      		this.setState({
-						editorState_5: editorState,
-						loading: false
+						editorState_5: editorState
 					});
 		      	} else {
 
 		      	}
 		    }
   		});
+		this.setState({
+			loading: false
+		});
   	});
   }
 
   	saveEditorState = (editorState, companyId) => {
-  		// console.log('saveEditorState editorState == ', editorState);
-  		// console.log('saveEditorState companyId == ', companyId);
   		if(companyId === '1'){
   			this.setState({
 				editorState_1: editorState,
@@ -123,30 +119,6 @@ class EditNews extends React.Component {
   		}else {
 
   		}
-	}
-
-	uploadImageCallBack = (file) => {
-		console.log('uploadImageCallBack   file === ', file);
-		return new Promise(
-		    (resolve, reject) => {
-		        const xhr = new XMLHttpRequest();
-		        xhr.open('POST', restUrl.UPLOAD);
-		        const data = new FormData();
-	  			data.append('file', file);
-		        xhr.send(data);
-		      
-			    xhr.addEventListener('load', () => {
-			        const response = JSON.parse(xhr.responseText);
-			        response.data.link = restUrl.ADDR + response.data.link;
-			        console.log('response == ', response);
-			        resolve(response);
-			    });
-			    xhr.addEventListener('error', () => {
-			        const error = JSON.parse(xhr.responseText);
-			        reject(error);
-			    });
-		    },
-		);
 	}
 
 	submitLost = (companyId) => {

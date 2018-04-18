@@ -1,19 +1,43 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { Row, Col, Affix, Icon, Input, Dropdown, Menu, Avatar, Tooltip } from 'antd';
+import { Row, Col, Affix, Icon, Input, Dropdown, Menu, Avatar, Tooltip, notification } from 'antd';
+import restUrl from 'RestUrl';
+import ajax from 'Utils/ajax';
 import './zzHeader.less';
 
-const menu = (
-  <Menu>
-    <Menu.Item>
-      <Link to="/login">退出登录</Link>
-    </Menu.Item>
-  </Menu>
-);
+const logoutUrl = restUrl.ADDR + 'server/LoginOut';
 
 class ZZHeader extends React.Component {
   constructor(props) {
     super(props);
+
+    this.menu = (
+      <Menu>
+        <Menu.Item>
+          <span onClick={this.logout}>退出登录</span>
+        </Menu.Item>
+      </Menu>
+    );
+  }
+
+  logout = () => {
+    let param = {};
+    param.userId = localStorage.userId;
+    ajax.postJSON(logoutUrl, JSON.stringify(param), (data) => {
+      if(data.success){
+        localStorage.removeItem('token');
+        localStorage.removeItem('userId');
+        notification.open({
+            message: '已安全退出！',
+            icon: <Icon type="smile-circle" style={{ color: '#108ee9' }} />,
+        });
+        this.context.router.push('/login');
+      }else {
+        notification.warning({
+            message: data.backMsg
+        });
+      }  
+    });
   }
 
   render() {
@@ -40,7 +64,7 @@ class ZZHeader extends React.Component {
               prefix={<Icon type="search" style={{ color: 'rgba(0,0,0,1)', fontSize: 16, fontWeight: 600 }} />}
               style={{ width: 200 }}
             />
-            <Dropdown overlay={menu}>
+            <Dropdown overlay={this.menu}>
               <a className="ant-dropdown-link">
                 <Avatar style={{ verticalAlign: '-6px', backgroundColor: '#fc5a59' }} size="small" icon="user" /> 管理员<Icon type="down" />
               </a>
@@ -51,5 +75,9 @@ class ZZHeader extends React.Component {
     );
   }
 }
+
+ZZHeader.contextTypes = {  
+  router: React.PropTypes.object  
+} 
 
 export default ZZHeader;

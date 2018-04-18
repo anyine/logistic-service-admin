@@ -5,6 +5,8 @@ import _ from 'lodash';
 import menuTree from './menu';
 import './zzLeftSide.less';
 
+import crh from 'Img/crh.png';
+
 const { Header, Content, Footer, Sider } = Layout;
 const SubMenu = Menu.SubMenu;
 
@@ -78,7 +80,7 @@ class ZZLeftSide extends React.Component {
         collapsed={collapsed}
         className="left-side"
       >
-        <div className="logo">ADMIN</div>
+        <div className="logo"><img src={crh} /></div>
         <Menu 
           theme="dark" 
           defaultSelectedKeys={[defaultSelectedKeys]} 

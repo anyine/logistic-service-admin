@@ -12,7 +12,7 @@ class ZZFooter extends React.Component {
   render() {
     return (
       <Footer style={{ textAlign: 'center' }}>
-        admin system ©2018 Created by ZZ
+        高铁后勤保障服务中心 ©2018 Created by ZZ
       </Footer>
     );
   }

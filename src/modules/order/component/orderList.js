@@ -126,20 +126,15 @@ class OrderList extends React.Component {
         <div className="breadcrumb-block">
           <Breadcrumb>
             <Breadcrumb.Item>首页</Breadcrumb.Item>
-            <Breadcrumb.Item>产品管理</Breadcrumb.Item>
+            <Breadcrumb.Item>就餐一二楼官网管理</Breadcrumb.Item>
           </Breadcrumb>
         </div>
         <div className="ibox-title">
-            <h5>所有订单</h5>
+            <h5>就餐一二楼官网管理</h5>
         </div>
         <div className="ibox-content">
           <Spin spinning={loading}>
-            <Table 
-              bordered={true} 
-              dataSource={dataSource} 
-              columns={this.columns}
-              scroll={{ x: 1500 }}
-             />
+            
           </Spin>
         </div>
       </div>

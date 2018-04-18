@@ -175,38 +175,11 @@ var ajax = {
         if(token){
             req.set('Token', token);
         }else {
-            window.location.href = '/#/login';
+            window.location.hash = '/login';
         }
-        // var authenticationStr = AuthToken.getAuthenticationStr();
-        // if (_defaults.noToken !== true) {
-        //     if (token) {
-        //         req.set('icop-token', token);
-        //     }
-        //     if (authenticationStr) {
-        //         req.set('authority', authenticationStr);
-        //     }
-        // }
         req.query(_defaults.query).send(_defaults.send).end(function (err, res) {
-            if (err || (res && res.badRequest)) {
-                //    if (res.body !== null) {
-                //        // 如果启用了access_token失效时自动重新登录的功能
-                //        if (defaults.reloginIfTokenExpired) {
-                //            // 8193错误：access_token未找到
-                //            // 8211错误：access_token无效，可能已过期，需要重新授权
-                //            if (res.body.error_code === 8211 || res.body.error_code === 8193) {
-                //                oauth2Logout();
-                //            }
-                //        }
-                //        // logOauth2Error(res.body);
-                //        // oauth2Relogin();
-                //    }
-                if (typeof _defaults.error === 'function') {
-                    //如果有外部的错误异常处理则使用外部的
-                    _defaults.error(res);
-                } else {
-                    //如果没有则使用内部默认的异常处理
-                    // Toast.fail(err.message, 3);
-                }
+            if (err && err.status === 401) {
+                window.location.hash = '/login';
             }
             if (res && res.ok) {
                 if (res.headers && res.headers['icop-content-type']) {
