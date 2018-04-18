@@ -1,10 +1,14 @@
 import React from 'react';
-import { Form, Icon, Row, Col, Input, Button, Checkbox } from 'antd';
+import { Form, Icon, Row, Col, Input, Button, Checkbox, message } from 'antd';
+import restUrl from 'RestUrl';
+import ajax from 'Utils/ajax';
 import '../login.less';
 
 import loginBg from 'Img/login-bg.jpg';
 import logo from 'Img/logo.png';
 const FormItem = Form.Item;
+
+const loginUrl = restUrl.ADDR + 'server/login';
 
 class Login extends React.Component {
   constructor(props) {
@@ -22,10 +26,17 @@ class Login extends React.Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
-        // let param = {};
-        // param
-        console.log('this.context.router === ', this.context.router);
-        this.context.router.push('/frame/home');
+        let param = {};
+        param.user_name = values.userName;
+        param.user_pwd = values.password;
+        ajax.postJSON(loginUrl, JSON.stringify(param), (data) => {
+          if(data.success){
+            localStorage.token = data.token;
+            this.context.router.push('/frame/home');
+          }else {
+            message.error(data.backMsg);
+          }  
+        });
       }
     });
   }

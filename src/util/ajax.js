@@ -170,8 +170,13 @@ var ajax = {
                 }
             }
         }
-        //存在token则携带全局token到header里面，TODO 临时提供，后期采用动态方式
-        // var token = AuthToken.getToken();
+        //存在token则携带全局token到header里面
+        var token = localStorage.token;
+        if(token){
+            req.set('Token', token);
+        }else {
+            window.location.href = '/#/login';
+        }
         // var authenticationStr = AuthToken.getAuthenticationStr();
         // if (_defaults.noToken !== true) {
         //     if (token) {
@@ -181,10 +186,6 @@ var ajax = {
         //         req.set('authority', authenticationStr);
         //     }
         // }
-        //设置请求携带cookie
-        if (_defaults.cookies === true) {
-            req.withCredentials();
-        }
         req.query(_defaults.query).send(_defaults.send).end(function (err, res) {
             if (err || (res && res.badRequest)) {
                 //    if (res.body !== null) {
