@@ -20,11 +20,11 @@ const Menu = [
 				label: '添加菜单'
 			}, {
 				key: '3_3',
-				link: '/frame/dish/brandAdmin',
+				link: '/frame/dish/survey',
 				label: '满意度调查管理'
 			}, {
 				key: '3_4',
-				link: '/frame/dish/brandAdmin',
+				link: '/frame/dish/healthFood',
 				label: '健康饮食信息管理'
 			}
 		]
@@ -52,15 +52,15 @@ const Menu = [
 		children: [
 			{
 				key: '5_1',
-				link: '/frame/news/caseList',
+				link: '/frame/residence/propertyInformation',
 				label: '房源信息管理'
 			}, {
 				key: '5_2',
-				link: '/frame/news/addCase',
+				link: '/frame/residence/survey',
 				label: '满意度调查管理'
 			}, {
 				key: '5_3',
-				link: '/frame/news/newsList',
+				link: '/frame/residence/healthLife',
 				label: '健康生活信息管理'
 			}
 		]

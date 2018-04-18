@@ -15,17 +15,16 @@ import DishList from '../modules/dish/component/dishList';
 import DishDetailInfo from '../modules/dish/component/dishDetailInfo';
 import EditDish from '../modules/dish/component/editDish';
 import AddDish from '../modules/dish/component/addDish';
+import HealthFood from '../modules/dish/component/healthFood';
+import DishSurvey from '../modules/dish/component/survey';
 import BrandAdmin from '../modules/dish/component/brandAdmin';
 /* 订单管理 */
 import OrderList from '../modules/order/component/orderList';
 import OrderDetailInfo from '../modules/order/component/orderDetailInfo';
-/* 案例和新闻管理 */
-import CaseList from '../modules/news/component/caseList';
-import AddCase from '../modules/news/component/addCase';
-import NewsList from '../modules/news/component/newsList';
-import AddNews from '../modules/news/component/addNews';
-import NewsDetailInfo from '../modules/news/component/newsDetailInfo';
-import EditNews from '../modules/news/component/editNews';
+/* 宿舍公寓管理 */
+import PropertyInformation from '../modules/residence/component/propertyInformation';
+import ResidenceSurvey from '../modules/residence/component/survey';
+import HealthLife from '../modules/residence/component/healthLife';
 
 module.exports = (
     <Route path="/" component={App}>
@@ -39,15 +38,14 @@ module.exports = (
             <route path="dish/dishDetailInfo/:id" component={DishDetailInfo} />
             <route path="dish/editDish/:id" component={EditDish} />
             <route path="dish/AddDish" component={AddDish} />
+            <route path="dish/healthFood" component={HealthFood} />
+            <route path="dish/survey" component={DishSurvey} />
             <route path="dish/brandAdmin" component={BrandAdmin} />
             <route path="order/orderList" component={OrderList} />
             <route path="order/orderDetailInfo/:id" component={OrderDetailInfo} />
-            <route path="news/newsList" component={NewsList} />
-            <route path="news/addNews" component={AddNews} />
-            <route path="news/newsDetailInfo/:id" component={NewsDetailInfo} />
-            <route path="news/editNews/:id" component={EditNews} />
-            <route path="news/caseList" component={CaseList} />
-            <route path="news/addCase" component={AddCase} />
+            <route path="residence/propertyInformation" component={PropertyInformation} />
+            <route path="residence/survey" component={ResidenceSurvey} />
+            <route path="residence/healthLife" component={HealthLife} />
         </Route>
     </Route>
 );

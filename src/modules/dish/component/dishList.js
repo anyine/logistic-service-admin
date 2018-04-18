@@ -11,7 +11,7 @@ const Search = Input.Search;
 const getDishListUrl = restUrl.ADDR + 'server/getDishList';
 const onlineStateChangeUrl = restUrl.ADDR + 'server/onlineStateChange';
 
-class ProductList extends React.Component {
+class DishList extends React.Component {
     constructor(props) {
         super(props);
 
@@ -449,8 +449,8 @@ class ProductList extends React.Component {
   }
 }
 
-ProductList.contextTypes = {  
+DishList.contextTypes = {  
   router: React.PropTypes.object  
 } 
 
-export default ProductList;
+export default DishList;
