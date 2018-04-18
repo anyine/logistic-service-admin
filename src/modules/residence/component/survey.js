@@ -2,7 +2,7 @@ import React from 'react';
 import { Form, Row, Col, Icon, Input, InputNumber, Dropdown, Menu, Avatar, Select, Divider, Button, Upload, notification } from 'antd';
 import ajax from 'Utils/ajax';
 import restUrl from 'RestUrl';
-import '../news.less';
+import '../residence.less';
 import { EditorState, convertToRaw } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
