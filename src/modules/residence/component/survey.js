@@ -100,9 +100,9 @@ class AddNews extends React.Component {
   	const { getFieldDecorator, setFieldsValue } = this.props.form;
 
     return (
-      <div className="zui-cotent addNews">
+      <div className="zui-content addNews">
       	<div className="ibox-title">
-            <h5>添加新闻</h5>
+            <h5>满意度调查管理</h5>
         </div>
         <div className="ibox-content">
 	      	<Form onSubmit={this.handleSubmit}>
