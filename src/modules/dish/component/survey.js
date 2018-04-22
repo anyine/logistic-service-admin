@@ -1,47 +1,40 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { Row, Col, Input, Icon, List, Divider, Breadcrumb, Badge, notification, Spin, Tabs, message, Avatar } from 'antd';
+import { Row, Col, Input, Icon, List, Divider, Breadcrumb, Badge, notification, Spin, Tabs, Table, message, Avatar } from 'antd';
 import _ from 'lodash';
 import restUrl from 'RestUrl';
 import ajax from 'Utils/ajax';
 import '../dish.less';
+const TabPane = Tabs.TabPane;
 const Search = Input.Search;
-const getDishListUrl = restUrl.ADDR + 'server/getDishList';
-const onlineStateChangeUrl = restUrl.ADDR + 'server/onlineStateChange';
-
-const data = [
-  {
-    title: 'Ant Design Title 1',
-    icon: 'smile-o'
-  },
-  {
-    title: 'Ant Design Title 2',
-    icon: 'meh-o'
-  },
-  {
-    title: 'Ant Design Title 3',
-    icon: 'meh-o'
-  },
-  {
-    title: 'Ant Design Title 4',
-    icon: 'frown-o'
-  },
-];
-
-const pagination = {
-  pageSize: 10,
-  current: 1,
-  total: data.length,
-  onChange: (() => {}),
-};
+const getSurveyListUrl = restUrl.ADDR + 'survey/getSurveyList';
 
 class Survey extends React.Component {
     constructor(props) {
         super(props);
 
+        this.columns = [{
+            title: '满意程度',
+            dataIndex: 'satisfaction',
+            key: 'satisfaction',
+        }, {
+            title: '电话号码',
+            dataIndex: 'telephone',
+            key: 'telephone',
+        }, {
+            title: '建议内容',
+            dataIndex: 'suggestion',
+            key: 'suggestion',
+        }, {
+            title: '创建时间',
+            dataIndex: 'create_time',
+            key: 'create_time',
+        }];
+
         this.state = {
-            visible: false,
             loading: false,
+            dataSource_1: [],
+            dataSource_2: [],
         };
     }
 
@@ -49,10 +42,37 @@ class Survey extends React.Component {
     }
 
     componentDidMount = () => {
+      this.getSurveyList();
+    }
+
+    getSurveyList = () => {
+      this.setState({
+        loading: true
+      });
+      ajax.getJSON(getSurveyListUrl, null, data => {
+        if(data.success){
+          let dataSource_1 = [], dataSource_2 = [];
+          data = data.backData;
+          data.map(item => {
+            item.key = item.id;
+            if(item.companyId === '1')
+              dataSource_1.push(item);
+            if(item.companyId === '2')
+              dataSource_2.push(item);
+          });
+          this.setState({
+            dataSource_1,
+            dataSource_2
+          });
+        }
+        this.setState({
+          loading: false
+        });
+      });
     }
 
   render() {
-    const { treeData_1, treeData_2, dataSource_1, dataSource_2, data_1, data_2, loading } = this.state;
+    const { dataSource_1, dataSource_2, loading } = this.state;
 
     return (
     <div className="zui-content">
@@ -63,51 +83,30 @@ class Survey extends React.Component {
             <Breadcrumb.Item>满意度调查管理</Breadcrumb.Item>
           </Breadcrumb>
         </div>
-        <Spin spinning={loading}>
-            <Row gutter={32}>
-                <Col span={12}>
-                    <div className="ibox-title">
-                        <h5>一楼食堂</h5>
-                    </div>
-                    <div className="ibox-content">
-                        <List
-                            itemLayout="horizontal"
-                            size="large"
-                            pagination={pagination}
-                            dataSource={data}
-                            renderItem={item => (
-                              <List.Item>
-                                <List.Item.Meta
-                                  title={<div>{item.title}<Divider type="vertical" />{item.title}</div>}
-                                  description="Ant Design, a design language for background applications, is refined by Ant UED Team"
-                                />
-                              </List.Item>
-                            )}
-                        />
-                    </div>
-                </Col>
-                <Col span={12}>
-                    <div className="ibox-title">
-                        <h5>二楼食堂</h5>
-                    </div>
-                    <div className="ibox-content">
-                        <List
-                            itemLayout="horizontal"
-                            dataSource={data}
-                            renderItem={item => (
-                              <List.Item>
-                                <List.Item.Meta
-                                  avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
-                                  title={<a href="https://ant.design">{item.title}</a>}
-                                  description="Ant Design, a design language for background applications, is refined by Ant UED Team"
-                                />
-                              </List.Item>
-                            )}
-                        />
-                    </div>
-                </Col>
-            </Row>
-        </Spin>
+        <div className="ibox-title">
+            <h5>满意度调查管理</h5>
+        </div>
+        <div className="ibox-content">
+          <Spin spinning={loading}>
+            
+            <Tabs defaultActiveKey="1">
+              <TabPane tab="一楼食堂" key="1">
+                <Table 
+                  bordered={true} 
+                  dataSource={dataSource_1} 
+                  columns={this.columns}
+                />
+              </TabPane>
+              <TabPane tab="二楼食堂" key="2">
+                <Table 
+                  bordered={true} 
+                  dataSource={dataSource_2} 
+                  columns={this.columns}
+                />
+              </TabPane>
+            </Tabs>
+          </Spin>
+        </div>
     </div>
     );
   }
