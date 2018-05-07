@@ -366,7 +366,7 @@ class DishList extends React.Component {
               </TabPane>
               <TabPane tab="二楼食堂" key="2">
                 <Row gutter={32}>
-                  <Col span={4}>
+                  <Col span={3}>
                     <div style={{marginTop: 10, color: '#000', fontSize: 16}}>所有菜品</div>
                     <Divider />
                     <Tree
@@ -388,7 +388,7 @@ class DishList extends React.Component {
                       columns={this.columns}
                     />
                   </Col>
-                  <Col span={5}>
+                  <Col span={6}>
                     <div style={{marginTop: 10, color: '#000', fontSize: 16}}>今日菜单</div>
                     <Divider />
                     <Tabs defaultActiveKey="1">
