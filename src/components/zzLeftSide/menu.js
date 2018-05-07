@@ -26,7 +26,11 @@ const Menu = [
 				key: '3_4',
 				link: '/frame/dish/healthFood',
 				label: '健康饮食信息管理'
-			}
+			}, {
+                key: '3_5',
+                link: '/frame/dish/AddHealthFood',
+                label: '新增健康饮食信息'
+            }
 		]
 	}, {
 		key: '4',
@@ -62,7 +66,11 @@ const Menu = [
 				key: '5_3',
 				link: '/frame/residence/healthLife',
 				label: '健康生活信息管理'
-			}
+			}, {
+                key: '5_4',
+                link: '/frame/residence/addHealthLife',
+                label: '新增健康生活信息'
+            }
 		]
 	}, {
 		key: '2',

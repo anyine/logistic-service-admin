@@ -16,6 +16,7 @@ import DishDetailInfo from '../modules/dish/component/dishDetailInfo';
 import EditDish from '../modules/dish/component/editDish';
 import AddDish from '../modules/dish/component/addDish';
 import HealthFood from '../modules/dish/component/healthFood';
+import AddHealthFood from '../modules/dish/component/addHealthFood';
 import DishSurvey from '../modules/dish/component/survey';
 import BrandAdmin from '../modules/dish/component/brandAdmin';
 /* 订单管理 */
@@ -25,6 +26,7 @@ import OrderDetailInfo from '../modules/order/component/orderDetailInfo';
 import PropertyInformation from '../modules/residence/component/propertyInformation';
 import ResidenceSurvey from '../modules/residence/component/survey';
 import HealthLife from '../modules/residence/component/healthLife';
+import AddHealthLife from '../modules/residence/component/addHealthLife';
 
 module.exports = (
     <Route path="/" component={App}>
@@ -39,6 +41,7 @@ module.exports = (
             <route path="dish/editDish/:id" component={EditDish} />
             <route path="dish/AddDish" component={AddDish} />
             <route path="dish/healthFood" component={HealthFood} />
+            <route path="dish/addHealthFood" component={AddHealthFood} />
             <route path="dish/survey" component={DishSurvey} />
             <route path="dish/brandAdmin" component={BrandAdmin} />
             <route path="order/orderList" component={OrderList} />
@@ -46,6 +49,7 @@ module.exports = (
             <route path="residence/propertyInformation" component={PropertyInformation} />
             <route path="residence/survey" component={ResidenceSurvey} />
             <route path="residence/healthLife" component={HealthLife} />
+            <route path="residence/addHealthLife" component={AddHealthLife} />
         </Route>
     </Route>
 );
