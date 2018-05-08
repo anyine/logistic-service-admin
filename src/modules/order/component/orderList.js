@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { Table, Icon, Divider, Breadcrumb, Menu, Dropdown, Spin, Badge  } from 'antd';
+import { Table, Icon, Divider, Breadcrumb, Menu, Dropdown, Spin, Badge, Tabs  } from 'antd';
 import ajax from 'Utils/ajax';
 import restUrl from 'RestUrl';
 import '../order.less';
-
+const TabPane = Tabs.TabPane;
 const getUserListUrl = restUrl.ADDR + 'Order/getOrderList';
 
 
@@ -92,7 +92,7 @@ class OrderList extends React.Component {
 
     this.state = {
       dataSource: [],
-      loading: true
+      loading: false
     };
   }
 
@@ -101,17 +101,17 @@ class OrderList extends React.Component {
 
   componentDidMount = () => { 
     var param = {};
-    ajax.getJSON(getUserListUrl, null, (data) => {
-      data =  eval('(' + data.backData + ')');
-      console.log('UserList === ', data);
-      data.map(function(item, index){
-        item.key = index;
-      });
-      this.setState({
-        dataSource: data,
-        loading: false
-      });
-    });
+    // ajax.getJSON(getUserListUrl, null, (data) => {
+    //   data =  eval('(' + data.backData + ')');
+    //   console.log('UserList === ', data);
+    //   data.map(function(item, index){
+    //     item.key = index;
+    //   });
+    //   this.setState({
+    //     dataSource: data,
+    //     loading: false
+    //   });
+    // });
   }
 
   detailrouter = (id) => {
@@ -134,7 +134,12 @@ class OrderList extends React.Component {
         </div>
         <div className="ibox-content">
           <Spin spinning={loading}>
-            
+              <Tabs defaultActiveKey="1">
+                  <TabPane tab="一楼食堂官网" key="1">
+                  </TabPane>
+                  <TabPane tab="二楼食堂官网" key="2">
+                  </TabPane>
+              </Tabs>
           </Spin>
         </div>
       </div>
