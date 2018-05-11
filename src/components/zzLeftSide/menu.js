@@ -40,12 +40,16 @@ const Menu = [
 		children: [
 			{
 				key: '4_1',
-				link: '/frame/order/orderList',
+				link: '/frame/company/website',
 				label: '就餐一二楼官网管理'
 			}, {
 				key: '4_2',
-				link: '/frame/order/orderList',
+				link: '/frame/company/website2',
 				label: '住宿一二三栋官网管理'
+			}, {
+				key: '4_3',
+				link: '/frame/company/addServiceAndHoliday',
+				label: '新增服务和节日信息'
 			}
 		]
 	}, {

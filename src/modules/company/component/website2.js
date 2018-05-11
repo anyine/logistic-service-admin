@@ -22,7 +22,7 @@ const updateComPhotoUrl = restUrl.ADDR + 'company/updateComPhoto';
 const getServiceListUrl = restUrl.ADDR + 'company/GetServiceList';
 
 
-class OrderList extends React.Component {
+class Website2 extends React.Component {
     constructor(props) {
         super(props);
 
@@ -74,14 +74,19 @@ class OrderList extends React.Component {
         this.state = {
             data_1: {},
             data_2: {},
+            data_3: {},
             editorState_1: EditorState.createEmpty(),
             editorState_2: EditorState.createEmpty(),
+            editorState_3: EditorState.createEmpty(),
             service_1: [],
             service_2: [],
+            service_3: [],
             holiday_1: [],
             holiday_2: [],
+            holiday_3: [],
             fileList_1: [],
             fileList_2: [],
+            fileList_3: [],
             loading: false
         };
     }
@@ -101,36 +106,44 @@ class OrderList extends React.Component {
                     let editorState = EditorState.createEmpty();
                     let photos = item.photo.split(',');
                     let photoList = [];
-                    photos.map((photo, index) => {
-                        photoList.push({
-                            uid: photo,
-                            name: photo + '.png',
-                            status: 'done',
-                            url: restUrl.BASE_HOST + 'UpLoadFile/' + photo + '.png',
-                            response: {
-                                data: {
-                                    id: photo
+                    if(photos[0] !== ''){
+                        photos.map((photo, index) => {
+                            photoList.push({
+                                uid: photo,
+                                name: photo + '.png',
+                                status: 'done',
+                                url: restUrl.BASE_HOST + 'UpLoadFile/' + photo + '.png',
+                                response: {
+                                    data: {
+                                        id: photo
+                                    }
                                 }
-                            }
+                            });
                         });
-                    });
+                    }
                     if(item.culture && item.culture !== '') {
                         item.culture = draftToHtml(JSON.parse(item.culture));
                         const contentBlock = htmlToDraft(item.culture);
                         const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
                         editorState = EditorState.createWithContent(contentState);
                     }
-                    if(item.companyId === '1') {
+                    if(item.companyId === '3') {
                         this.setState({
                             data_1: item,
                             editorState_1: editorState,
                             fileList_1: photoList
                         });
-                    } else if(item.companyId === '2') {
+                    } else if(item.companyId === '4') {
                         this.setState({
                             data_2: item,
                             editorState_2: editorState,
                             fileList_2: photoList
+                        });
+                    } else if(item.companyId === '5') {
+                        this.setState({
+                            data_3: item,
+                            editorState_3: editorState,
+                            fileList_3: photoList
                         });
                     }
                 });
@@ -143,28 +156,36 @@ class OrderList extends React.Component {
         ajax.getJSON(getServiceListUrl, null, (data) => {
             if (data.success) {
                 let backData = data.backData;
-                let service_1 = [], service_2 = [];
-                let holiday_1 = [], holiday_2 = [];
+                let service_1 = [], service_2 = [], service_3 = [];
+                let holiday_1 = [], holiday_2 = [], holiday_3 = [];
                 backData.map(item => {
-                    if(item.companyId === '1'){
+                    if(item.companyId === '3'){
                         if(service_type === '服务咨询'){
                             service_1.push(item);
                         }else if(service_type === '节日活动'){
                             holiday_1.push(item);
                         }
-                    }else if(item.companyId === '2'){
+                    }else if(item.companyId === '4'){
                         if(service_type === '服务咨询'){
                             service_2.push(item);
                         }else if(service_type === '节日活动'){
                             holiday_2.push(item);
+                        }
+                    }else if(item.companyId === '5'){
+                        if(service_type === '服务咨询'){
+                            service_3.push(item);
+                        }else if(service_type === '节日活动'){
+                            holiday_3.push(item);
                         }
                     }
                 });
                 this.setState({
                     service_1,
                     service_2,
+                    service_3,
                     holiday_1,
-                    holiday_2
+                    holiday_2,
+                    holiday_3
                 });
             }
         });
@@ -182,15 +203,19 @@ class OrderList extends React.Component {
     }
 
     updateComPhoto = (companyId) => {
-        const { fileList_1, fileList_2 } = this.state;
+        const { fileList_1, fileList_2, fileList_3 } = this.state;
         let param = {};
         param.companyId = companyId;
-        if(companyId === '1'){
+        if(companyId === '3'){
             param.photo = fileList_1.map((item, index) => {
                 return item.response.data.id;
             }).join(',');
-        }else if(companyId === '2'){
+        }else if(companyId === '4'){
             param.photo = fileList_2.map((item, index) => {
+                return item.response.data.id;
+            }).join(',');
+        }else if(companyId === '5'){
+            param.photo = fileList_3.map((item, index) => {
                 return item.response.data.id;
             }).join(',');
         }
@@ -209,28 +234,34 @@ class OrderList extends React.Component {
 
     handleChange = (fileList, companyId) => {
         console.log('fileList == ', fileList);
-        if(companyId === '1'){
+        if(companyId === '3'){
             this.setState({
                 fileList_1: fileList.fileList
             });
-        }else if(companyId === '2'){
+        }else if(companyId === '4'){
             this.setState({
                 fileList_2: fileList.fileList
+            });
+        }else if(companyId === '5'){
+            this.setState({
+                fileList_3: fileList.fileList
             });
         }
     }
 
     saveEditorState = (editorState, companyId) => {
-        if (companyId === '1') {
+        if (companyId === '3') {
             this.setState({
                 editorState_1: editorState,
             });
-        } else if (companyId === '2') {
+        } else if (companyId === '4') {
             this.setState({
                 editorState_2: editorState,
             });
-        } else {
-
+        } else if (companyId === '5') {
+            this.setState({
+                editorState_3: editorState,
+            });
         }
     }
 
@@ -238,40 +269,44 @@ class OrderList extends React.Component {
         let {
             editorState_1,
             editorState_2,
+            editorState_3,
             fileList_1,
             fileList_2,
+            fileList_3,
             service_1,
             service_2,
+            service_3,
             holiday_1,
             holiday_2,
+            holiday_3,
             loading,
             submitLoading_1,
             submitLoading_2,
         } = this.state;
-
+        console.log('fileList_1 === ', fileList_1);
         return (
             <div className="zui-content">
                 <div className="breadcrumb-block">
                     <Breadcrumb>
                         <Breadcrumb.Item>首页</Breadcrumb.Item>
-                        <Breadcrumb.Item>就餐一二楼官网管理</Breadcrumb.Item>
+                        <Breadcrumb.Item>宿舍公寓官网管理</Breadcrumb.Item>
                     </Breadcrumb>
                 </div>
                 <div className="ibox-title">
-                    <h5>就餐一二楼官网管理</h5>
+                    <h5>宿舍公寓官网管理</h5>
                 </div>
                 <div className="ibox-content">
                     <Spin spinning={loading}>
                         <Tabs defaultActiveKey="1">
-                            <TabPane tab="一楼食堂官网" key="1">
+                            <TabPane tab="学生公寓1号官网" key="1">
                                 <Tabs defaultActiveKey="1_1">
                                     <TabPane tab="企业文化" key="1_1">
-                                        <ZZEditor editorState={editorState_1} companyId={'1'}
+                                        <ZZEditor editorState={editorState_1} companyId={'3'}
                                                   saveEditorState={this.saveEditorState}/>
                                         <Divider/>
                                         <Row>
                                             <Col>
-                                                <Button type="primary" onClick={this.updateComCulture.bind(null, '1')}>保存</Button>
+                                                <Button type="primary" onClick={this.updateComCulture.bind(null, '3')}>保存</Button>
                                             </Col>
                                         </Row>
                                     </TabPane>
@@ -288,7 +323,8 @@ class OrderList extends React.Component {
                                             listType={'picture'}
                                             fileList={fileList_1}
                                             className='upload-list-inline'
-                                            onChange={(fileList) => this.handleChange(fileList, '1')}
+                                            multiple
+                                            onChange={(fileList) => this.handleChange(fileList, '3')}
                                         >
                                             <Button>
                                                 <Icon type="upload"/> 上传
@@ -297,7 +333,7 @@ class OrderList extends React.Component {
                                         <Divider/>
                                         <Row>
                                             <Col>
-                                                <Button type="primary" onClick={this.updateComPhoto.bind(null, '1')}>保存</Button>
+                                                <Button type="primary" onClick={this.updateComPhoto.bind(null, '3')}>保存</Button>
                                             </Col>
                                         </Row>
                                     </TabPane>
@@ -310,15 +346,15 @@ class OrderList extends React.Component {
                                     </TabPane>
                                 </Tabs>
                             </TabPane>
-                            <TabPane tab="二楼食堂官网" key="2">
+                            <TabPane tab="学生公寓2号官网" key="2">
                                 <Tabs defaultActiveKey="1_1">
                                     <TabPane tab="企业文化" key="1_1">
-                                        <ZZEditor editorState={editorState_2} companyId={'2'}
+                                        <ZZEditor editorState={editorState_2} companyId={'4'}
                                                   saveEditorState={this.saveEditorState}/>
                                         <Divider/>
                                         <Row>
                                             <Col>
-                                                <Button type="primary" onClick={this.updateComCulture.bind(null, '2')}>保存</Button>
+                                                <Button type="primary" onClick={this.updateComCulture.bind(null, '4')}>保存</Button>
                                             </Col>
                                         </Row>
                                     </TabPane>
@@ -335,7 +371,8 @@ class OrderList extends React.Component {
                                             listType={'picture'}
                                             fileList={fileList_2}
                                             className='upload-list-inline'
-                                            onChange={(fileList) => this.handleChange(fileList, '2')}
+                                            multiple
+                                            onChange={(fileList) => this.handleChange(fileList, '4')}
                                         >
                                             <Button>
                                                 <Icon type="upload"/> 上传
@@ -344,7 +381,7 @@ class OrderList extends React.Component {
                                         <Divider/>
                                         <Row>
                                             <Col>
-                                                <Button type="primary" onClick={this.updateComPhoto.bind(null, '2')}>保存</Button>
+                                                <Button type="primary" onClick={this.updateComPhoto.bind(null, '4')}>保存</Button>
                                             </Col>
                                         </Row>
                                     </TabPane>
@@ -352,6 +389,54 @@ class OrderList extends React.Component {
                                         <Table 
                                           bordered={true} 
                                           dataSource={holiday_2} 
+                                          columns={this.columns}
+                                        />
+                                    </TabPane>
+                                </Tabs>
+                            </TabPane>
+                            <TabPane tab="教师公寓官网" key="3">
+                                <Tabs defaultActiveKey="1_1">
+                                    <TabPane tab="企业文化" key="1_1">
+                                        <ZZEditor editorState={editorState_3} companyId={'5'}
+                                                  saveEditorState={this.saveEditorState}/>
+                                        <Divider/>
+                                        <Row>
+                                            <Col>
+                                                <Button type="primary" onClick={this.updateComCulture.bind(null, '5')}>保存</Button>
+                                            </Col>
+                                        </Row>
+                                    </TabPane>
+                                    <TabPane tab="服务咨询" key="1_2">
+                                        <Table 
+                                          bordered={true} 
+                                          dataSource={service_3} 
+                                          columns={this.columns}
+                                        />
+                                    </TabPane>
+                                    <TabPane tab="企业相册" key="1_3">
+                                        <Upload
+                                            action={restUrl.UPLOAD}
+                                            listType={'picture'}
+                                            fileList={fileList_3}
+                                            className='upload-list-inline'
+                                            multiple
+                                            onChange={(fileList) => this.handleChange(fileList, '5')}
+                                        >
+                                            <Button>
+                                                <Icon type="upload"/> 上传
+                                            </Button>
+                                        </Upload>
+                                        <Divider/>
+                                        <Row>
+                                            <Col>
+                                                <Button type="primary" onClick={this.updateComPhoto.bind(null, '5')}>保存</Button>
+                                            </Col>
+                                        </Row>
+                                    </TabPane>
+                                    <TabPane tab="节日活动" key="1_4">
+                                        <Table 
+                                          bordered={true} 
+                                          dataSource={holiday_3} 
                                           columns={this.columns}
                                         />
                                     </TabPane>
@@ -365,8 +450,8 @@ class OrderList extends React.Component {
     }
 }
 
-OrderList.contextTypes = {
+Website2.contextTypes = {
     router: React.PropTypes.object
 }
 
-export default OrderList;
+export default Website2;

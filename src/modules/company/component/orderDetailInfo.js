@@ -2,7 +2,7 @@ import React from 'react';
 import { Form, Row, Col, Breadcrumb, Icon, Input, InputNumber, Dropdown, Menu, Avatar, Select, Divider, Button, Upload, notification, Steps, Spin } from 'antd';
 import ajax from 'Utils/ajax';
 import restUrl from 'RestUrl';
-import '../order.less';
+import '../company.less';
 
 const FormItem = Form.Item;
 const Step = Steps.Step;
