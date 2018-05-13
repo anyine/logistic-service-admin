@@ -39,9 +39,14 @@ class EditDish extends React.Component {
 			uid: -1,
 			name: data.dish_img + '.png',
 			status: 'done',
-			url: restUrl.BASE_HOST + 'UpLoadFile/' + data.dish_img + '.png'
+			url: restUrl.BASE_HOST + 'UpLoadFile/' + data.dish_img + '.png',
+            response: {
+                data: {
+                    id: data.dish_img
+                }
+            }
 	    }];
-
+        data.dish_img = fileList;
 		this.setState({
 			data,
 			fileList

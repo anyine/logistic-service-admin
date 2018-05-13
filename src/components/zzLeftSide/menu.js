@@ -83,9 +83,21 @@ const Menu = [
 		label: '失物招领'
 	}, {
         key: '7',
-        iconType: 'solution',
-        link: '/frame/live/',
-        label: '训练段动态'
+        iconType: 'rocket',
+        link: '',
+        label: '训练段动态',
+        children: [
+            {
+                key: '7_1',
+                link: '/frame/live/liveList',
+                label: '动态列表'
+            },
+            {
+                key: '7_2',
+                link: '/frame/live/addLive',
+                label: '新增动态'
+            }
+        ]
 	}, {
 		key: '6',
 		iconType: 'credit-card',

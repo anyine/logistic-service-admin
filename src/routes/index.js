@@ -29,6 +29,9 @@ import PropertyInformation from '../modules/residence/component/propertyInformat
 import ResidenceSurvey from '../modules/residence/component/survey';
 import HealthLife from '../modules/residence/component/healthLife';
 import AddHealthLife from '../modules/residence/component/addHealthLife';
+/* 训练段动态 */
+import LiveList from '../modules/live/component/liveList';
+import AddLive from '../modules/live/component/addLive';
 
 module.exports = (
     <Route path="/" component={App}>
@@ -54,6 +57,8 @@ module.exports = (
             <route path="residence/survey" component={ResidenceSurvey} />
             <route path="residence/healthLife" component={HealthLife} />
             <route path="residence/addHealthLife" component={AddHealthLife} />
+            <route path="live/liveList" component={LiveList} />
+            <route path="live/addLive" component={AddLive} />
         </Route>
     </Route>
 );

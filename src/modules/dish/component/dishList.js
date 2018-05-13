@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { Row, Col, Input, Tree, Table, Icon, List, Switch, Divider, Breadcrumb, Badge, notification, Menu, Dropdown, Popconfirm, Spin, Tabs, message, Avatar } from 'antd';
+import { Row, Col, Input, Tree, Table, Icon, List, Switch, Divider, Breadcrumb, Badge, notification, Menu, Dropdown, Popconfirm, Spin, Tabs, message, Modal } from 'antd';
 import _ from 'lodash';
 import restUrl from 'RestUrl';
 import ajax from 'Utils/ajax';
@@ -10,6 +10,7 @@ const TreeNode = Tree.TreeNode;
 const Search = Input.Search;
 const getDishListUrl = restUrl.ADDR + 'server/getDishList';
 const onlineStateChangeUrl = restUrl.ADDR + 'server/onlineStateChange';
+const delDsihUrl = restUrl.ADDR + 'server/delDish';
 
 class DishList extends React.Component {
     constructor(props) {
@@ -61,15 +62,7 @@ class DishList extends React.Component {
                               <Link to={this.editrouter(record.id)}>编辑</Link>
                             </Menu.Item>
                             <Menu.Item>
-                                <Popconfirm 
-                                    title="确定要删除吗?" 
-                                    cancelText="取消"
-                                    okText="确定"
-                                    placement="leftTop"
-                                    onConfirm={() => this.onDelete(record.key)}
-                                >
-                                    <a href="#">删除</a>
-                                </Popconfirm>
+                                <a onClick={() => this.onDelete(record.id)}>删除</a>
                             </Menu.Item>
                         </Menu>
                     }
@@ -212,8 +205,28 @@ class DishList extends React.Component {
     }
 
     onDelete = (key) => {
-        const dataSource = [...this.state.dataSource];
-        this.setState({ dataSource: dataSource.filter(item => item.key !== key) });
+        Modal.confirm({
+            title: '提示',
+            content: '确认要删除吗？',
+            okText: '确认',
+            cancelText: '取消',
+            onOk: () => {
+                let param = {};
+                param.id = key;
+                ajax.postJSON(delDsihUrl, JSON.stringify(param), data => {
+                    if(data.success){
+                        notification.open({
+                            message: '删除成功！',
+                            icon: <Icon type="smile-circle" style={{ color: '#108ee9' }} />,
+                        });
+                        this.getDishList();
+                        this.forceUpdate();
+                    }else {
+                        message.warning(data.backMsg);
+                    }
+                });
+            }
+        });
     }
 
     loadTreeNode = (treeData) => {
@@ -382,11 +395,11 @@ class DishList extends React.Component {
                   <Col span={15}>
                     <div style={{marginTop: 10, color: '#000', fontSize: 16}}>菜单列表</div>
                     <Divider />
-                    <Table 
-                      bordered={true} 
-                      dataSource={dataSource_2} 
+                    <Table
+                      bordered={true}
+                      dataSource={dataSource_2}
                       columns={this.columns}
-                    />
+                  />
                   </Col>
                   <Col span={6}>
                     <div style={{marginTop: 10, color: '#000', fontSize: 16}}>今日菜单</div>

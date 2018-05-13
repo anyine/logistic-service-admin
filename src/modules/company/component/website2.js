@@ -10,6 +10,7 @@ import ZZEditor from '../../../components/zzEditor/zzEditor';
 import {EditorState, convertFromRaw, convertToRaw, ContentState} from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
 import htmlToDraft from 'html-to-draftjs';
+import {message, Modal, notification} from "antd/lib/index";
 
 const TabPane = Tabs.TabPane;
 //获取公司信息
@@ -20,7 +21,7 @@ const updateComCultureUrl = restUrl.ADDR + 'company/updateComCulture';
 const updateComPhotoUrl = restUrl.ADDR + 'company/updateComPhoto';
 //获取公司服务信息
 const getServiceListUrl = restUrl.ADDR + 'company/GetServiceList';
-
+const delServiceUrl = restUrl.ADDR + 'company/delService';
 
 class Website2 extends React.Component {
     constructor(props) {
@@ -53,15 +54,7 @@ class Website2 extends React.Component {
                               <Link to={this.editrouter(record.id)}>编辑</Link>
                             </Menu.Item>
                             <Menu.Item>
-                                <Popconfirm 
-                                    title="确定要删除吗?" 
-                                    cancelText="取消"
-                                    okText="确定"
-                                    placement="leftTop"
-                                    onConfirm={() => this.onDelete(record.key)}
-                                >
-                                    <a href="#">删除</a>
-                                </Popconfirm>
+                                <a onClick={() => this.onDelete(record.key)}>删除</a>
                             </Menu.Item>
                         </Menu>
                     }
@@ -239,8 +232,28 @@ class Website2 extends React.Component {
     }
 
     onDelete = (key) => {
-        const dataSource = [...this.state.dataSource];
-        this.setState({ dataSource: dataSource.filter(item => item.key !== key) });
+        Modal.confirm({
+            title: '提示',
+            content: '确认要删除吗？',
+            okText: '确认',
+            cancelText: '取消',
+            onOk: () => {
+                let param = {};
+                param.id = key;
+                ajax.postJSON(delServiceUrl, JSON.stringify(param), data => {
+                    if(data.success){
+                        notification.open({
+                            message: '删除成功！',
+                            icon: <Icon type="smile-circle" style={{ color: '#108ee9' }} />,
+                        });
+                        this.getServiceList();
+                        this.forceUpdate();
+                    }else {
+                        message.warning(data.backMsg);
+                    }
+                });
+            }
+        });
     }
 
     handleChange = (fileList, companyId) => {
@@ -316,7 +329,7 @@ class Website2 extends React.Component {
                                                   saveEditorState={this.saveEditorState}/>
                                         <Divider/>
                                         <Row>
-                                            <Col>
+                                            <Col style={{textAlign: 'center'}}>
                                                 <Button type="primary" onClick={this.updateComCulture.bind(null, '3')}>保存</Button>
                                             </Col>
                                         </Row>
@@ -343,7 +356,7 @@ class Website2 extends React.Component {
                                         </Upload>
                                         <Divider/>
                                         <Row>
-                                            <Col>
+                                            <Col style={{textAlign: 'center'}}>
                                                 <Button type="primary" onClick={this.updateComPhoto.bind(null, '3')}>保存</Button>
                                             </Col>
                                         </Row>
@@ -364,7 +377,7 @@ class Website2 extends React.Component {
                                                   saveEditorState={this.saveEditorState}/>
                                         <Divider/>
                                         <Row>
-                                            <Col>
+                                            <Col style={{textAlign: 'center'}}>
                                                 <Button type="primary" onClick={this.updateComCulture.bind(null, '4')}>保存</Button>
                                             </Col>
                                         </Row>
@@ -391,7 +404,7 @@ class Website2 extends React.Component {
                                         </Upload>
                                         <Divider/>
                                         <Row>
-                                            <Col>
+                                            <Col style={{textAlign: 'center'}}>
                                                 <Button type="primary" onClick={this.updateComPhoto.bind(null, '4')}>保存</Button>
                                             </Col>
                                         </Row>
@@ -412,7 +425,7 @@ class Website2 extends React.Component {
                                                   saveEditorState={this.saveEditorState}/>
                                         <Divider/>
                                         <Row>
-                                            <Col>
+                                            <Col style={{textAlign: 'center'}}>
                                                 <Button type="primary" onClick={this.updateComCulture.bind(null, '5')}>保存</Button>
                                             </Col>
                                         </Row>
@@ -439,7 +452,7 @@ class Website2 extends React.Component {
                                         </Upload>
                                         <Divider/>
                                         <Row>
-                                            <Col>
+                                            <Col style={{textAlign: 'center'}}>
                                                 <Button type="primary" onClick={this.updateComPhoto.bind(null, '5')}>保存</Button>
                                             </Col>
                                         </Row>
