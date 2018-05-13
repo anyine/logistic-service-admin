@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router';
-import {Row, Col, Table, Icon, Divider, Breadcrumb, Menu, Dropdown, Spin, Badge, Tabs, Upload, Button} from 'antd';
+import {Row, Col, Table, Icon, Divider, Breadcrumb, Menu, Dropdown, Spin, Popconfirm, Tabs, Upload, Button} from 'antd';
 import ajax from 'Utils/ajax';
 import restUrl from 'RestUrl';
 import '../company.less';
@@ -28,7 +28,7 @@ class Website2 extends React.Component {
 
         this.columns = [{
             title: '名称',
-            dataIndex: 'dish_title',
+            dataIndex: 'service_title',
             key: 'name',
             render: (text, record, index) => (
                 <Link to={this.detailrouter(record.id)}>{text}</Link>
@@ -96,6 +96,7 @@ class Website2 extends React.Component {
 
     componentDidMount = () => {
         this.getCompanyInfo();
+        this.getServiceList();
     }
 
     getCompanyInfo = () => {
@@ -159,22 +160,23 @@ class Website2 extends React.Component {
                 let service_1 = [], service_2 = [], service_3 = [];
                 let holiday_1 = [], holiday_2 = [], holiday_3 = [];
                 backData.map(item => {
+                    item.key = item.id;
                     if(item.companyId === '3'){
-                        if(service_type === '服务咨询'){
+                        if(item.service_type === '服务咨询'){
                             service_1.push(item);
-                        }else if(service_type === '节日活动'){
+                        }else if(item.service_type === '节日活动'){
                             holiday_1.push(item);
                         }
                     }else if(item.companyId === '4'){
-                        if(service_type === '服务咨询'){
+                        if(item.service_type === '服务咨询'){
                             service_2.push(item);
-                        }else if(service_type === '节日活动'){
+                        }else if(item.service_type === '节日活动'){
                             holiday_2.push(item);
                         }
                     }else if(item.companyId === '5'){
-                        if(service_type === '服务咨询'){
+                        if(item.service_type === '服务咨询'){
                             service_3.push(item);
-                        }else if(service_type === '节日活动'){
+                        }else if(item.service_type === '节日活动'){
                             holiday_3.push(item);
                         }
                     }
@@ -229,7 +231,16 @@ class Website2 extends React.Component {
 
 
     detailrouter = (id) => {
-        return `/frame/order/orderDetailInfo/${id}`
+        return `/frame/dish/dishDetailInfo/${id}`
+    }
+
+    editrouter = (id) => {
+        return `/frame/dish/editDish/${id}`
+    }
+
+    onDelete = (key) => {
+        const dataSource = [...this.state.dataSource];
+        this.setState({ dataSource: dataSource.filter(item => item.key !== key) });
     }
 
     handleChange = (fileList, companyId) => {

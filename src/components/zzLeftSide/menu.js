@@ -44,7 +44,7 @@ const Menu = [
 				label: '就餐一二楼官网管理'
 			}, {
 				key: '4_2',
-				link: '/frame/company/website2',
+				link: '/frame/company/webSiteResident',
 				label: '住宿一二三栋官网管理'
 			}, {
 				key: '4_3',
@@ -81,6 +81,11 @@ const Menu = [
 		iconType: 'solution',
 		link: '/frame/lost/',
 		label: '失物招领'
+	}, {
+        key: '7',
+        iconType: 'solution',
+        link: '/frame/live/',
+        label: '训练段动态'
 	}, {
 		key: '6',
 		iconType: 'credit-card',

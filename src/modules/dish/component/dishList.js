@@ -204,7 +204,7 @@ class DishList extends React.Component {
     }
 
     detailrouter = (id) => {
-      return `/frame/dish/dishDetailInfo/${id}`
+        return `/frame/dish/dishDetailInfo/${id}`
     }
 
     editrouter = (id) => {

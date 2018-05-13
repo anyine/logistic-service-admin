@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router';
-import {Row, Col, Table, Icon, Divider, Breadcrumb, Menu, Dropdown, Spin, Badge, Tabs, Upload, Button} from 'antd';
+import {Row, Col, Table, Icon, Divider, Breadcrumb, Menu, Dropdown, Spin, Popconfirm, Tabs, Upload, Button} from 'antd';
 import ajax from 'Utils/ajax';
 import restUrl from 'RestUrl';
 import '../company.less';
@@ -28,7 +28,7 @@ class OrderList extends React.Component {
 
         this.columns = [{
             title: '名称',
-            dataIndex: 'dish_title',
+            dataIndex: 'service_title',
             key: 'name',
             render: (text, record, index) => (
                 <Link to={this.detailrouter(record.id)}>{text}</Link>
@@ -91,6 +91,7 @@ class OrderList extends React.Component {
 
     componentDidMount = () => {
         this.getCompanyInfo();
+        this.getServiceList();
     }
 
     getCompanyInfo = () => {
@@ -101,19 +102,21 @@ class OrderList extends React.Component {
                     let editorState = EditorState.createEmpty();
                     let photos = item.photo.split(',');
                     let photoList = [];
-                    photos.map((photo, index) => {
-                        photoList.push({
-                            uid: photo,
-                            name: photo + '.png',
-                            status: 'done',
-                            url: restUrl.BASE_HOST + 'UpLoadFile/' + photo + '.png',
-                            response: {
-                                data: {
-                                    id: photo
+                    if(photos[0] !== ''){
+                        photos.map((photo, index) => {
+                            photoList.push({
+                                uid: photo,
+                                name: photo + '.png',
+                                status: 'done',
+                                url: restUrl.BASE_HOST + 'UpLoadFile/' + photo + '.png',
+                                response: {
+                                    data: {
+                                        id: photo
+                                    }
                                 }
-                            }
+                            });
                         });
-                    });
+                    }
                     if(item.culture && item.culture !== '') {
                         item.culture = draftToHtml(JSON.parse(item.culture));
                         const contentBlock = htmlToDraft(item.culture);
@@ -146,16 +149,17 @@ class OrderList extends React.Component {
                 let service_1 = [], service_2 = [];
                 let holiday_1 = [], holiday_2 = [];
                 backData.map(item => {
+                    item.key = item.id;
                     if(item.companyId === '1'){
-                        if(service_type === '服务咨询'){
+                        if(item.service_type === '服务咨询'){
                             service_1.push(item);
-                        }else if(service_type === '节日活动'){
+                        }else if(item.service_type === '节日活动'){
                             holiday_1.push(item);
                         }
                     }else if(item.companyId === '2'){
-                        if(service_type === '服务咨询'){
+                        if(item.service_type === '服务咨询'){
                             service_2.push(item);
-                        }else if(service_type === '节日活动'){
+                        }else if(item.service_type === '节日活动'){
                             holiday_2.push(item);
                         }
                     }
@@ -204,7 +208,16 @@ class OrderList extends React.Component {
 
 
     detailrouter = (id) => {
-        return `/frame/order/orderDetailInfo/${id}`
+        return `/frame/dish/dishDetailInfo/${id}`
+    }
+
+    editrouter = (id) => {
+        return `/frame/dish/editDish/${id}`
+    }
+
+    onDelete = (key) => {
+        const dataSource = [...this.state.dataSource];
+        this.setState({ dataSource: dataSource.filter(item => item.key !== key) });
     }
 
     handleChange = (fileList, companyId) => {
@@ -288,6 +301,7 @@ class OrderList extends React.Component {
                                             listType={'picture'}
                                             fileList={fileList_1}
                                             className='upload-list-inline'
+                                            multiple
                                             onChange={(fileList) => this.handleChange(fileList, '1')}
                                         >
                                             <Button>
@@ -335,6 +349,7 @@ class OrderList extends React.Component {
                                             listType={'picture'}
                                             fileList={fileList_2}
                                             className='upload-list-inline'
+                                            multiple
                                             onChange={(fileList) => this.handleChange(fileList, '2')}
                                         >
                                             <Button>

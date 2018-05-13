@@ -33,96 +33,260 @@ class Survey extends React.Component {
 
         this.state = {
             loading: false,
-            dataSource_1: [],
-            dataSource_2: [],
-            dataSource_3: []
+            data_1: {
+                satisfaction: {
+                    A: 0,
+                    B: 0,
+                    C: 0
+                },
+                dish: {
+                    A: 0,
+                    B: 0,
+                    C: 0
+                },
+                clean: {
+                    A: 0,
+                    B: 0,
+                    C: 0
+                }
+            },
+            data_2: {
+                satisfaction: {
+                    A: 0,
+                    B: 0,
+                    C: 0
+                },
+                dish: {
+                    A: 0,
+                    B: 0,
+                    C: 0
+                },
+                clean: {
+                    A: 0,
+                    B: 0,
+                    C: 0
+                }
+            },
+            data_3: {
+            satisfaction: {
+                A: 0,
+                    B: 0,
+                    C: 0
+            },
+            dish: {
+                A: 0,
+                    B: 0,
+                    C: 0
+            },
+            clean: {
+                A: 0,
+                    B: 0,
+                    C: 0
+            }
+        }
         };
     }
 
-    componentWillMount = () => { 
+    componentWillMount = () => {
     }
 
     componentDidMount = () => {
-      this.getSurveyList();
+        this.getSurveyList();
     }
 
     getSurveyList = () => {
-      this.setState({
-        loading: true
-      });
-      ajax.getJSON(getSurveyListUrl, null, data => {
-        if(data.success){
-          let dataSource_1 = [], dataSource_2 = [], dataSource_3 = [];
-          data = data.backData;
-          data.map(item => {
-            item.key = item.id;
-            if(item.companyId === '3')
-              dataSource_1.push(item);
-            if(item.companyId === '4')
-              dataSource_2.push(item);
-          	if(item.companyId === '5')
-              dataSource_3.push(item);
-          });
-          this.setState({
-            dataSource_1,
-            dataSource_2
-          });
-        }
         this.setState({
-          loading: false
+            loading: true
         });
-      });
+        ajax.getJSON(getSurveyListUrl, null, data => {
+            if(data.success){
+                let data_1 = {
+                    satisfaction: {
+                        A: 0,
+                        B: 0,
+                        C: 0
+                    },
+                    dish: {
+                        A: 0,
+                        B: 0,
+                        C: 0
+                    },
+                    clean: {
+                        A: 0,
+                        B: 0,
+                        C: 0
+                    }
+                }, data_2 = {
+                    satisfaction: {
+                        A: 0,
+                        B: 0,
+                        C: 0
+                    },
+                    dish: {
+                        A: 0,
+                        B: 0,
+                        C: 0
+                    },
+                    clean: {
+                        A: 0,
+                        B: 0,
+                        C: 0
+                    }
+                }, data_3 = {
+                    satisfaction: {
+                        A: 0,
+                        B: 0,
+                        C: 0
+                    },
+                    dish: {
+                        A: 0,
+                        B: 0,
+                        C: 0
+                    },
+                    clean: {
+                        A: 0,
+                        B: 0,
+                        C: 0
+                    }
+                };
+                data = data.backData;
+                data.map(item => {
+                    item.key = item.id;
+                    if(item.companyId === '3') {
+                        if (item.satisfaction === '满意') data_1.satisfaction.A++;
+                        else if (item.satisfaction === '一般') data_1.satisfaction.B++;
+                        else data_1.satisfaction.C++;
+
+                        if (item.dish === '满意') data_1.dish.A++;
+                        else if (item.dish === '一般') data_1.dish.B++;
+                        else data_1.dish.C++;
+
+                        if (item.clean === '满意') data_1.clean.A++;
+                        else if (item.clean === '一般') data_1.clean.B++;
+                        else data_1.clean.C++;
+                    }
+                    if(item.companyId === '4'){
+                        if (item.satisfaction === '满意') data_2.satisfaction.A++;
+                        else if (item.satisfaction === '一般') data_2.satisfaction.B++;
+                        else data_2.satisfaction.C++;
+
+                        if (item.dish === '满意') data_2.dish.A++;
+                        else if (item.dish === '一般') data_2.dish.B++;
+                        else data_2.dish.C++;
+
+                        if (item.clean === '满意') data_2.clean.A++;
+                        else if (item.clean === '一般') data_2.clean.B++;
+                        else data_2.clean.C++;
+                    }
+                    if(item.companyId === '5'){
+                        if (item.satisfaction === '满意') data_3.satisfaction.A++;
+                        else if (item.satisfaction === '一般') data_3.satisfaction.B++;
+                        else data_3.satisfaction.C++;
+
+                        if (item.dish === '满意') data_3.dish.A++;
+                        else if (item.dish === '一般') data_3.dish.B++;
+                        else data_3.dish.C++;
+
+                        if (item.clean === '满意') data_3.clean.A++;
+                        else if (item.clean === '一般') data_3.clean.B++;
+                        else data_3.clean.C++;
+                    }
+                });
+                this.setState({
+                    data_1,
+                    data_2,
+                    data_3
+                });
+            }
+            this.setState({
+                loading: false
+            });
+        });
     }
 
-  render() {
-    const { dataSource_1, dataSource_2, dataSource_3, loading } = this.state;
+    render() {
+        const { data_1, data_2, data_3, loading } = this.state;
 
-    return (
-    <div className="zui-content">
-        <div className="breadcrumb-block">
-          <Breadcrumb>
-            <Breadcrumb.Item>首页</Breadcrumb.Item>
-            <Breadcrumb.Item>就餐服务管理</Breadcrumb.Item>
-            <Breadcrumb.Item>满意度调查管理</Breadcrumb.Item>
-          </Breadcrumb>
-        </div>
-        <div className="ibox-title">
-            <h5>满意度调查管理</h5>
-        </div>
-        <div className="ibox-content">
-          <Spin spinning={loading}>
-            <Tabs defaultActiveKey="1">
-              <TabPane tab="学生公寓1号" key="1">
-                <Table 
-                  bordered={true} 
-                  dataSource={dataSource_1} 
-                  columns={this.columns}
-                />
-              </TabPane>
-              <TabPane tab="学生公寓2号" key="2">
-                <Table 
-                  bordered={true} 
-                  dataSource={dataSource_2} 
-                  columns={this.columns}
-                />
-              </TabPane>
-              <TabPane tab="教师公寓" key="3">
-                <Table 
-                  bordered={true} 
-                  dataSource={dataSource_3} 
-                  columns={this.columns}
-                />
-              </TabPane>
-            </Tabs>
-          </Spin>
-        </div>
-    </div>
-    );
-  }
+        return (
+            <div className="zui-content">
+                <div className="breadcrumb-block">
+                    <Breadcrumb>
+                        <Breadcrumb.Item>首页</Breadcrumb.Item>
+                        <Breadcrumb.Item>就餐服务管理</Breadcrumb.Item>
+                        <Breadcrumb.Item>满意度调查管理</Breadcrumb.Item>
+                    </Breadcrumb>
+                </div>
+                <div className="ibox-title">
+                    <h5>满意度调查管理</h5>
+                </div>
+                <div className="ibox-content">
+                    <Spin spinning={loading}>
+
+                        <Tabs defaultActiveKey="1">
+                            <TabPane tab="学生公寓1号" key="1">
+                                <Row gutter={32} className="survey-result">
+                                    <Col span={12}>
+                                        <h1>服务</h1>
+                                        <Divider />
+                                        <h2><span>满意:</span><span>{data_1.satisfaction.A}</span></h2>
+                                        <h2><span>一般:</span><span>{data_1.satisfaction.B}</span></h2>
+                                        <h2><span>差:</span><span>{data_1.satisfaction.C}</span></h2>
+                                    </Col>
+                                    <Col span={12}>
+                                        <h1>卫生</h1>
+                                        <Divider />
+                                        <h2><span>满意:</span><span>{data_1.clean.A}</span></h2>
+                                        <h2><span>一般:</span><span>{data_1.clean.B}</span></h2>
+                                        <h2><span>差:</span><span>{data_1.clean.C}</span></h2>
+                                    </Col>
+                                </Row>
+                            </TabPane>
+                            <TabPane tab="学生公寓2号" key="2">
+                                <Row gutter={32} className="survey-result">
+                                    <Col span={12}>
+                                        <h1>服务</h1>
+                                        <Divider />
+                                        <h2><span>满意:</span><span>{data_2.satisfaction.A}</span></h2>
+                                        <h2><span>一般:</span><span>{data_2.satisfaction.B}</span></h2>
+                                        <h2><span>差:</span><span>{data_2.satisfaction.C}</span></h2>
+                                    </Col>
+                                    <Col span={12}>
+                                        <h1>卫生</h1>
+                                        <Divider />
+                                        <h2><span>满意:</span><span>{data_2.clean.A}</span></h2>
+                                        <h2><span>一般:</span><span>{data_2.clean.B}</span></h2>
+                                        <h2><span>差:</span><span>{data_2.clean.C}</span></h2>
+                                    </Col>
+                                </Row>
+                            </TabPane>
+                            <TabPane tab="教师公寓" key="3">
+                                <Row gutter={32} className="survey-result">
+                                    <Col span={12}>
+                                        <h1>服务</h1>
+                                        <Divider />
+                                        <h2><span>满意:</span><span>{data_3.satisfaction.A}</span></h2>
+                                        <h2><span>一般:</span><span>{data_3.satisfaction.B}</span></h2>
+                                        <h2><span>差:</span><span>{data_3.satisfaction.C}</span></h2>
+                                    </Col>
+                                    <Col span={12}>
+                                        <h1>卫生</h1>
+                                        <Divider />
+                                        <h2><span>满意:</span><span>{data_3.clean.A}</span></h2>
+                                        <h2><span>一般:</span><span>{data_3.clean.B}</span></h2>
+                                        <h2><span>差:</span><span>{data_3.clean.C}</span></h2>
+                                    </Col>
+                                </Row>
+                            </TabPane>
+                        </Tabs>
+                    </Spin>
+                </div>
+            </div>
+        );
+    }
 }
 
-Survey.contextTypes = {  
-  router: React.PropTypes.object  
-} 
+Survey.contextTypes = {
+    router: React.PropTypes.object
+}
 
 export default Survey;

@@ -33,8 +33,40 @@ class Survey extends React.Component {
 
         this.state = {
             loading: false,
-            dataSource_1: [],
-            dataSource_2: [],
+            data_1: {
+                satisfaction: {
+                    A: 0,
+                    B: 0,
+                    C: 0
+                },
+                dish: {
+                    A: 0,
+                    B: 0,
+                    C: 0
+                },
+                clean: {
+                    A: 0,
+                    B: 0,
+                    C: 0
+                }
+            },
+            data_2: {
+                satisfaction: {
+                    A: 0,
+                    B: 0,
+                    C: 0
+                },
+                dish: {
+                    A: 0,
+                    B: 0,
+                    C: 0
+                },
+                clean: {
+                    A: 0,
+                    B: 0,
+                    C: 0
+                }
+            },
         };
     }
 
@@ -51,18 +83,72 @@ class Survey extends React.Component {
       });
       ajax.getJSON(getSurveyListUrl, null, data => {
         if(data.success){
-          let dataSource_1 = [], dataSource_2 = [];
+          let data_1 = {
+              satisfaction: {
+                  A: 0,
+                  B: 0,
+                  C: 0
+              },
+              dish: {
+                  A: 0,
+                  B: 0,
+                  C: 0
+              },
+              clean: {
+                  A: 0,
+                  B: 0,
+                  C: 0
+              }
+          }, data_2 = {
+              satisfaction: {
+                  A: 0,
+                  B: 0,
+                  C: 0
+              },
+              dish: {
+                  A: 0,
+                  B: 0,
+                  C: 0
+              },
+              clean: {
+                  A: 0,
+                  B: 0,
+                  C: 0
+              }
+          };
           data = data.backData;
           data.map(item => {
             item.key = item.id;
-            if(item.companyId === '1')
-              dataSource_1.push(item);
-            if(item.companyId === '2')
-              dataSource_2.push(item);
+            if(item.companyId === '1') {
+                if (item.satisfaction === '满意') data_1.satisfaction.A++;
+                else if (item.satisfaction === '一般') data_1.satisfaction.B++;
+                else data_1.satisfaction.C++;
+
+                if (item.dish === '满意') data_1.dish.A++;
+                else if (item.dish === '一般') data_1.dish.B++;
+                else data_1.dish.C++;
+
+                if (item.clean === '满意') data_1.clean.A++;
+                else if (item.clean === '一般') data_1.clean.B++;
+                else data_1.clean.C++;
+            }
+            if(item.companyId === '2'){
+                if (item.satisfaction === '满意') data_2.satisfaction.A++;
+                else if (item.satisfaction === '一般') data_2.satisfaction.B++;
+                else data_2.satisfaction.C++;
+
+                if (item.dish === '满意') data_2.dish.A++;
+                else if (item.dish === '一般') data_2.dish.B++;
+                else data_2.dish.C++;
+
+                if (item.clean === '满意') data_2.clean.A++;
+                else if (item.clean === '一般') data_2.clean.B++;
+                else data_2.clean.C++;
+            }
           });
           this.setState({
-            dataSource_1,
-            dataSource_2
+            data_1,
+            data_2
           });
         }
         this.setState({
@@ -72,7 +158,7 @@ class Survey extends React.Component {
     }
 
   render() {
-    const { dataSource_1, dataSource_2, loading } = this.state;
+    const { data_1, data_2, loading } = this.state;
 
     return (
     <div className="zui-content">
@@ -91,18 +177,54 @@ class Survey extends React.Component {
             
             <Tabs defaultActiveKey="1">
               <TabPane tab="一楼食堂" key="1">
-                <Table 
-                  bordered={true} 
-                  dataSource={dataSource_1} 
-                  columns={this.columns}
-                />
+                  <Row gutter={32} className="survey-result">
+                      <Col span={8}>
+                          <h1>服务</h1>
+                          <Divider />
+                          <h2><span>满意:</span><span>{data_1.satisfaction.A}</span></h2>
+                          <h2><span>一般:</span><span>{data_1.satisfaction.B}</span></h2>
+                          <h2><span>差:</span><span>{data_1.satisfaction.C}</span></h2>
+                      </Col>
+                      <Col span={8}>
+                          <h1>菜品</h1>
+                          <Divider />
+                          <h2><span>满意:</span><span>{data_1.dish.A}</span></h2>
+                          <h2><span>一般:</span><span>{data_1.dish.B}</span></h2>
+                          <h2><span>差:</span><span>{data_1.dish.C}</span></h2>
+                      </Col>
+                      <Col span={8}>
+                          <h1>卫生</h1>
+                          <Divider />
+                          <h2><span>满意:</span><span>{data_1.clean.A}</span></h2>
+                          <h2><span>一般:</span><span>{data_1.clean.B}</span></h2>
+                          <h2><span>差:</span><span>{data_1.clean.C}</span></h2>
+                      </Col>
+                  </Row>
               </TabPane>
               <TabPane tab="二楼食堂" key="2">
-                <Table 
-                  bordered={true} 
-                  dataSource={dataSource_2} 
-                  columns={this.columns}
-                />
+                  <Row gutter={32} className="survey-result">
+                      <Col span={8}>
+                          <h1>服务</h1>
+                          <Divider />
+                          <h2><span>满意:</span><span>{data_2.satisfaction.A}</span></h2>
+                          <h2><span>一般:</span><span>{data_2.satisfaction.B}</span></h2>
+                          <h2><span>差:</span><span>{data_2.satisfaction.C}</span></h2>
+                      </Col>
+                      <Col span={8}>
+                          <h1>菜品</h1>
+                          <Divider />
+                          <h2><span>满意:</span><span>{data_2.dish.A}</span></h2>
+                          <h2><span>一般:</span><span>{data_2.dish.B}</span></h2>
+                          <h2><span>差:</span><span>{data_2.dish.C}</span></h2>
+                      </Col>
+                      <Col span={8}>
+                          <h1>卫生</h1>
+                          <Divider />
+                          <h2><span>满意:</span><span>{data_2.clean.A}</span></h2>
+                          <h2><span>一般:</span><span>{data_2.clean.B}</span></h2>
+                          <h2><span>差:</span><span>{data_2.clean.C}</span></h2>
+                      </Col>
+                  </Row>
               </TabPane>
             </Tabs>
           </Spin>

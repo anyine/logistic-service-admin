@@ -47,7 +47,7 @@ module.exports = (
             <route path="dish/survey" component={DishSurvey} />
             <route path="dish/brandAdmin" component={BrandAdmin} />
             <route path="company/website" component={Website} />
-            <route path="company/website2" component={Website2} />
+            <route path="company/webSiteResident" component={Website2} />
             <route path="company/addServiceAndHoliday" component={AddServiceAndHoliday} />
             <route path="company/orderDetailInfo/:id" component={OrderDetailInfo} />
             <route path="residence/propertyInformation" component={PropertyInformation} />
