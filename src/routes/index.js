@@ -32,6 +32,8 @@ import AddHealthLife from '../modules/residence/component/addHealthLife';
 /* 训练段动态 */
 import LiveList from '../modules/live/component/liveList';
 import AddLive from '../modules/live/component/addLive';
+/* 班车信息 */
+import Bus from '../modules/bus/component/';
 
 module.exports = (
     <Route path="/" component={App}>
@@ -59,6 +61,7 @@ module.exports = (
             <route path="residence/addHealthLife" component={AddHealthLife} />
             <route path="live/liveList" component={LiveList} />
             <route path="live/addLive" component={AddLive} />
+            <route path="bus" component={Bus} />
         </Route>
     </Route>
 );

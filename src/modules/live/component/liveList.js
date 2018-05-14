@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { Row, Col, Input, Icon, List, Menu, Breadcrumb, Dropdown, notification, Spin, Tabs, message, Table } from 'antd';
+import { Row, Col, Input, Icon, List, Menu, Breadcrumb, Dropdown, notification, Spin, Tabs, message, Table, Modal } from 'antd';
 import _ from 'lodash';
 import restUrl from 'RestUrl';
 import ajax from 'Utils/ajax';
@@ -8,6 +8,7 @@ import '../index.less';
 const Search = Input.Search;
 const TabPane = Tabs.TabPane;
 const getLiveListUrl = restUrl.ADDR + 'health/getLiveList';
+const delLiveUrl = restUrl.ADDR + 'health/delLive';
 
 class LiveList extends React.Component {
     constructor(props) {
@@ -68,12 +69,19 @@ class LiveList extends React.Component {
     }
 
     getList = () => {
+        this.setState({
+            loading: true
+        });
         let param = {};
         ajax.getJSON(getLiveListUrl, param, data => {
             if(data.success){
                 let backData = data.backData;
+                backData.map(item => {
+                    item.key = item.id;
+                });
                 this.setState({
-                    dataSource: backData
+                    dataSource: backData,
+                    loading: false
                 });
             }
         });
@@ -85,6 +93,31 @@ class LiveList extends React.Component {
 
     editrouter = (id) => {
         return `/frame/dish/editDish/${id}`
+    }
+
+    onDelete = (key) => {
+        Modal.confirm({
+            title: '提示',
+            content: '确认要删除吗？',
+            okText: '确认',
+            cancelText: '取消',
+            onOk: () => {
+                let param = {};
+                param.id = key;
+                ajax.postJSON(delLiveUrl, JSON.stringify(param), data => {
+                    if(data.success){
+                        notification.open({
+                            message: '删除成功！',
+                            icon: <Icon type="smile-circle" style={{ color: '#108ee9' }} />,
+                        });
+                        this.getList();
+                        this.forceUpdate();
+                    }else {
+                        message.warning(data.backMsg);
+                    }
+                });
+            }
+        });
     }
 
     render() {

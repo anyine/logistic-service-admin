@@ -106,7 +106,7 @@ const Menu = [
 		children: [
 			{
 				key: '6_1',
-				link: '/frame/news/caseList',
+				link: '/frame/bus',
 				label: '班车信息管理'
 			}
 		]

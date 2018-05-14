@@ -53,7 +53,7 @@ class AddLive extends React.Component {
                 ajax.postJSON(saveLiveUrl, JSON.stringify(values), (data) => {
                     if(data.success){
                         notification.open({
-                            message: '新增健康信息成功！',
+                            message: '新增动态信息成功！',
                             icon: <Icon type="smile-circle" style={{ color: '#108ee9' }} />,
                         });
                         this.context.router.push('/frame/live/liveList');
