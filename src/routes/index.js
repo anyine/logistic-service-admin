@@ -17,6 +17,7 @@ import EditDish from '../modules/dish/component/editDish';
 import AddDish from '../modules/dish/component/addDish';
 import HealthFood from '../modules/dish/component/healthFood';
 import AddHealthFood from '../modules/dish/component/addHealthFood';
+import EditHealth from '../modules/dish/component/editHealth';
 import DishSurvey from '../modules/dish/component/survey';
 import BrandAdmin from '../modules/dish/component/brandAdmin';
 /* 公司信息管理 */
@@ -49,6 +50,7 @@ module.exports = (
             <route path="dish/AddDish" component={AddDish} />
             <route path="dish/healthFood" component={HealthFood} />
             <route path="dish/addHealthFood" component={AddHealthFood} />
+            <route path="dish/editHealth/:id" component={EditHealth} />
             <route path="dish/survey" component={DishSurvey} />
             <route path="dish/brandAdmin" component={BrandAdmin} />
             <route path="company/website" component={Website} />

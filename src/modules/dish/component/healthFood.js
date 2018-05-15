@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { Row, Col, Input, Icon, List, Divider, Breadcrumb, Badge, notification, Spin, Tabs, message, Avatar } from 'antd';
+import { Row, Col, Input, Icon, List, Divider, Breadcrumb, Badge, notification, Spin, Tabs, message, Button } from 'antd';
 import _ from 'lodash';
 import restUrl from 'RestUrl';
 import ajax from 'Utils/ajax';
@@ -8,6 +8,7 @@ import '../dish.less';
 const Search = Input.Search;
 const TabPane = Tabs.TabPane;
 const getHealthListUrl = restUrl.ADDR + 'health/getHealthList';
+const delHealthUrl = restUrl.ADDR + 'health/delHealth';
 
 class HealthFoodList extends React.Component {
     constructor(props) {
@@ -38,6 +39,9 @@ class HealthFoodList extends React.Component {
     }
 
     getList = () => {
+      this.setState({
+        loading: true
+      });
         let param = {};
         ajax.getJSON(getHealthListUrl, param, data => {
            if(data.success){
@@ -59,10 +63,31 @@ class HealthFoodList extends React.Component {
                    },
                    pagination_2: {
                        total: listData_2.length
-                   }
+                   },
+                   loading: false
                });
            }
         });
+    }
+
+    delHealth = id => {
+      this.setState({
+        loading: true
+      });
+      let param = {};
+      param.id = id;
+      ajax.postJSON(delHealthUrl, JSON.stringify(param), data => {
+        if(data.success){
+          this.setState({
+            loading: false
+          }, () => {
+            this.getList();
+          });
+          
+        }else {
+
+        }
+      });
     }
 
     detailrouter = (id) => {
@@ -103,10 +128,10 @@ class HealthFoodList extends React.Component {
                                   extra={<img style={{width: 180, height: 120}} alt="logo" src={ restUrl.BASE_HOST + 'UpLoadFile/' + item.health_cover + '.png'} />}
                               >
                                   <List.Item.Meta
-                                      title={<a href={item.href}>{item.health_title}</a>}
+                                      title={<Link to={'/frame/dish/editHealth/' + item.id}>{item.health_title}</Link>}
                                       description={item.health_desc}
                                   />
-                                  {item.create_time}
+                                  {item.create_time} <Button onClick={this.delHealth.bind(null, item.id)}>删除</Button>
                               </List.Item>
                           )}
                       />
@@ -126,7 +151,7 @@ class HealthFoodList extends React.Component {
                                       title={<a href={item.href}>{item.health_title}</a>}
                                       description={item.health_desc}
                                   />
-                                  {item.create_time}
+                                  {item.create_time} <Button onClick={this.delHealth.bind(null, item.id)}>删除</Button>
                               </List.Item>
                           )}
                       />

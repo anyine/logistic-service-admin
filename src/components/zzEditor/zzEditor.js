@@ -34,7 +34,7 @@ class ZZEditor extends React.Component {
 		      
 			    xhr.addEventListener('load', () => {
 			        const response = JSON.parse(xhr.responseText);
-			        response.data.link = restUrl.ADDR + response.data.link;
+			        response.data.link = restUrl.BASE_HOST + response.data.link;
 			        console.log('response == ', response);
 			        resolve(response);
 			    });
