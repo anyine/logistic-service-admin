@@ -73,12 +73,10 @@ class EditHealth extends React.Component {
                         });
                     });
                 }
-                backData.health_cover = {
-                    fileList: photoList
-                };
+                backData.health_cover = photoList;
 
                 this.setState({
-                    data: data.backData,
+                    data: backData,
                     fileList: photoList,
                     loading: false
                 });
@@ -90,7 +88,7 @@ class EditHealth extends React.Component {
 
     handleChange = ({ fileList }) => {
         let {data} = this.state;
-        data.health_cover.fileList = fileList;
+        data.health_cover = fileList;
         this.setState({ 
             fileList,
             data
@@ -108,7 +106,7 @@ class EditHealth extends React.Component {
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 values.id = this.props.params.id;
-                values.health_cover = values.health_cover.fileList.map((item, index) => {
+                values.health_cover = values.health_cover.map((item, index) => {
                     return item.response.data.id;
                 }).join(',');
                 values.health_content = JSON.stringify(convertToRaw(this.state.editorState.getCurrentContent()));
@@ -129,7 +127,6 @@ class EditHealth extends React.Component {
     render() {
         let { data, fileList, editorState, loading } = this.state;
         const { getFieldDecorator, setFieldsValue } = this.props.form;
-        console.log('data  1111==== ', data);
 
         return (
             <div className="zui-content">
@@ -163,13 +160,14 @@ class EditHealth extends React.Component {
                                         {...formItemLayout}
                                     >
                                         {getFieldDecorator('health_cover', {
+                                            valuePropName: 'fileList',
                                             rules: [{ required: true, message: '封面图片不能为空!' }],
+                                            initialValue: data.health_cover
                                         })(
                                             <Upload
                                                 action={restUrl.UPLOAD}
                                                 listType={'picture'}
                                                 className='upload-list-inline'
-                                                fileList= {data.health_cover ? data.health_cover.fileList : null}
                                                 onChange={this.handleChange}
                                             >
                                                 {fileList.length >= 1 ? null : <Button><Icon type="upload" /> 上传</Button>}
