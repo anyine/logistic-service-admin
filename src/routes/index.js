@@ -34,6 +34,7 @@ import EditResidenceHealth from '../modules/residence/component/editHealth';
 /* 训练段动态 */
 import LiveList from '../modules/live/component/liveList';
 import AddLive from '../modules/live/component/addLive';
+import EditLive from '../modules/live/component/editLive';
 /* 班车信息 */
 import Bus from '../modules/bus/component/';
 
@@ -65,6 +66,7 @@ module.exports = (
             <route path="residence/editHealth/:id" component={EditResidenceHealth} />
             <route path="live/liveList" component={LiveList} />
             <route path="live/addLive" component={AddLive} />
+            <route path="live/editLive/:id" component={EditLive} />
             <route path="bus" component={Bus} />
         </Route>
     </Route>

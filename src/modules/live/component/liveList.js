@@ -19,7 +19,7 @@ class LiveList extends React.Component {
             dataIndex: 'live_title',
             key: 'live_title',
             render: (text, record, index) => (
-                <Link to={this.detailrouter(record.id)}>{text}</Link>
+                <Link to={this.editrouter(record.id)}>{text}</Link>
             )
         },{
             title: '描述',
@@ -38,9 +38,6 @@ class LiveList extends React.Component {
                 <Dropdown
                     overlay={
                         <Menu>
-                            <Menu.Item>
-                                <Link to={this.detailrouter(record.id)}>详情</Link>
-                            </Menu.Item>
                             <Menu.Item>
                                 <Link to={this.editrouter(record.id)}>编辑</Link>
                             </Menu.Item>
@@ -92,7 +89,7 @@ class LiveList extends React.Component {
     }
 
     editrouter = (id) => {
-        return `/frame/dish/editDish/${id}`
+        return `/frame/live/editLive/${id}`
     }
 
     onDelete = (key) => {
