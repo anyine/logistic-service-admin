@@ -68,6 +68,14 @@ class EditDish extends React.Component {
     });
   }
 
+  normFile = (e) => {
+    console.log('Upload event:', e);
+    if (Array.isArray(e)) {
+      return e;
+    }
+    return e && e.fileList;
+  }
+
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
@@ -167,6 +175,7 @@ class EditDish extends React.Component {
 					          >
 					          	{getFieldDecorator('dish_img', {
 					          		valuePropName: 'fileList',
+					          		getValueFromEvent: this.normFile,
 				                    rules: [{ required: true, message: '菜品图片不能为空!' }],
 				                    initialValue: data.dish_img
 				                })(
@@ -176,7 +185,7 @@ class EditDish extends React.Component {
 									    className='upload-list-inline'
 									    onChange={this.handleChange}
 						            >
-								    	{fileList.length >= 1 ? null : <Button><Icon type="upload" /> 上传</Button>}
+								    	<Button><Icon type="upload" /> 上传</Button>
 								    </Upload>
 								)}
 					        </FormItem>	      	

@@ -173,7 +173,12 @@ class OrderList extends React.Component {
         param.culture = JSON.stringify(convertToRaw(this.state.editorState_1.getCurrentContent()));
         ajax.postJSON(updateComCultureUrl, JSON.stringify(param), (data) => {
             if (data.success) {
-                alert('保存成功~');
+                notification.open({
+                    message: '更新公司企业文化信息成功！',
+                    icon: <Icon type="smile-circle" style={{ color: '#108ee9' }} />,
+                });
+            }else {
+                message.error(data.backMsg);
             }
         });
     }
@@ -194,7 +199,12 @@ class OrderList extends React.Component {
         
         ajax.postJSON(updateComPhotoUrl, JSON.stringify(param), (data) => {
             if (data.success) {
-                alert('保存成功~');
+                notification.open({
+                    message: '更新公司企业相册成功！',
+                    icon: <Icon type="smile-circle" style={{ color: '#108ee9' }} />,
+                });
+            }else {
+                message.error(data.backMsg);
             }
         });
     }

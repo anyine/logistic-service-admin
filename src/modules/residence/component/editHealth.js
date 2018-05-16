@@ -2,7 +2,7 @@ import React from 'react';
 import { Form, Row, Col, Icon, Input, InputNumber, Dropdown, Menu, Avatar, Select, Divider, Button, Upload, notification, Spin } from 'antd';
 import ajax from 'Utils/ajax';
 import restUrl from 'RestUrl';
-import '../dish.less';
+import '../residence.less';
 import ZZEditor from '../../../components/zzEditor/zzEditor';
 
 import { EditorState, convertFromRaw, convertToRaw, ContentState } from 'draft-js';
@@ -147,7 +147,7 @@ class EditHealth extends React.Component {
                             <Row>
                                 <Col span={12}>
                                     <FormItem
-                                        label="食堂"
+                                        label="公寓"
                                         {...formItemLayout}
                                     >
                                         {getFieldDecorator('companyId', {
@@ -156,8 +156,9 @@ class EditHealth extends React.Component {
                                         })(
                                             <Select
                                             >
-                                                <Option value={'1'}>一楼食堂</Option>
-                                                <Option value={'2'}>二楼食堂</Option>
+                                                <Option value={'3'}>学生公寓1号</Option>
+                                                <Option value={'4'}>学生公寓2号</Option>
+                                                <Option value={'5'}>教师公寓</Option>
                                             </Select>
                                         )}
                                     </FormItem>

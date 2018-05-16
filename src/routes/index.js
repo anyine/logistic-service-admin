@@ -30,6 +30,7 @@ import PropertyInformation from '../modules/residence/component/propertyInformat
 import ResidenceSurvey from '../modules/residence/component/survey';
 import HealthLife from '../modules/residence/component/healthLife';
 import AddHealthLife from '../modules/residence/component/addHealthLife';
+import EditResidenceHealth from '../modules/residence/component/editHealth';
 /* 训练段动态 */
 import LiveList from '../modules/live/component/liveList';
 import AddLive from '../modules/live/component/addLive';
@@ -61,6 +62,7 @@ module.exports = (
             <route path="residence/survey" component={ResidenceSurvey} />
             <route path="residence/healthLife" component={HealthLife} />
             <route path="residence/addHealthLife" component={AddHealthLife} />
+            <route path="residence/editHealth/:id" component={EditResidenceHealth} />
             <route path="live/liveList" component={LiveList} />
             <route path="live/addLive" component={AddLive} />
             <route path="bus" component={Bus} />

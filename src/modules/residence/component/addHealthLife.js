@@ -70,7 +70,7 @@ class AddHealthLife extends React.Component {
         return (
             <div className="zui-content">
                 <div className="ibox-title">
-                    <h5>新增健康饮食信息</h5>
+                    <h5>新增健康生活信息</h5>
                 </div>
                 <div className="ibox-content">
                     <Form onSubmit={this.handleSubmit}>
