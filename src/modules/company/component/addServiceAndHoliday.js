@@ -99,11 +99,11 @@ class AddServiceAndHoliday extends React.Component {
                                 >
                                     {getFieldDecorator('service_type', {
                                         rules: [{ required: false }],
-                                        initialValue: '服务咨询'
+                                        initialValue: '服务资讯'
                                     })(
                                         <Select
                                         >
-                                            <Option value={'服务咨询'}>服务咨询</Option>
+                                            <Option value={'服务资讯'}>服务资讯</Option>
                                             <Option value={'节日活动'}>节日活动</Option>
                                         </Select>
                                     )}

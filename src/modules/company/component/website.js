@@ -144,13 +144,13 @@ class OrderList extends React.Component {
                 backData.map(item => {
                     item.key = item.id;
                     if(item.companyId === '1'){
-                        if(item.service_type === '服务咨询'){
+                        if(item.service_type === '服务资讯'){
                             service_1.push(item);
                         }else if(item.service_type === '节日活动'){
                             holiday_1.push(item);
                         }
                     }else if(item.companyId === '2'){
-                        if(item.service_type === '服务咨询'){
+                        if(item.service_type === '服务资讯'){
                             service_2.push(item);
                         }else if(item.service_type === '节日活动'){
                             holiday_2.push(item);
@@ -311,7 +311,7 @@ class OrderList extends React.Component {
                                             </Col>
                                         </Row>
                                     </TabPane>
-                                    <TabPane tab="服务咨询" key="1_2">
+                                    <TabPane tab="服务资讯" key="1_2">
                                         <Table 
                                           bordered={true} 
                                           dataSource={service_1} 
@@ -359,7 +359,7 @@ class OrderList extends React.Component {
                                             </Col>
                                         </Row>
                                     </TabPane>
-                                    <TabPane tab="服务咨询" key="1_2">
+                                    <TabPane tab="服务资讯" key="1_2">
                                         <Table 
                                           bordered={true} 
                                           dataSource={service_2} 

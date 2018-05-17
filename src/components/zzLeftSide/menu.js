@@ -79,8 +79,15 @@ const Menu = [
 	}, {
 		key: '2',
 		iconType: 'solution',
-		link: '/frame/lost/',
-		label: '失物招领'
+		link: '',
+		label: '失物招领',
+		children: [
+            {
+                key: '2_1',
+                link: '/frame/lost/',
+                label: '失物招领列表'
+            }
+        ]
 	}, {
         key: '7',
         iconType: 'rocket',

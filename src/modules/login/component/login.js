@@ -14,6 +14,7 @@ class Login extends React.Component {
     super(props);
     
     this.state = {
+      loading: false
     };
   }
 
@@ -24,6 +25,9 @@ class Login extends React.Component {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
+        this.setState({
+          loading: true
+        });
         console.log('Received values of form: ', values);
         let param = {};
         param.user_name = values.userName;
@@ -36,6 +40,9 @@ class Login extends React.Component {
           }else {
             message.error(data.backMsg);
           }  
+          this.setState({
+            loading: false
+          });
         });
       }
     });
@@ -77,7 +84,7 @@ class Login extends React.Component {
                   )}
                 </FormItem>
                 <FormItem>
-                  <Button type="primary" htmlType="submit" className="login-form-button">
+                  <Button type="primary" htmlType="submit" className="login-form-button"  loading={this.state.loading}>
                     登录
                   </Button>
                 </FormItem>
