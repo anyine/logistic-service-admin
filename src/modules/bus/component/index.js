@@ -4,7 +4,7 @@ import ajax from 'Utils/ajax';
 import restUrl from 'RestUrl';
 import '../index.less';
 
-import ZZEditor from '../../../components/zzEditor/zzEditor';
+import ZZEditor from 'Comps/zzEditor/zzEditor';
 
 import { EditorState, convertFromRaw, convertToRaw, ContentState } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
