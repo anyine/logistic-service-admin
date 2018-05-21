@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { Layout, Icon, Menu } from 'antd';
+import { Scrollbars } from 'react-custom-scrollbars';
 import _ from 'lodash';
 import menuTree from './menu';
 import './zzLeftSide.less';
@@ -81,14 +82,16 @@ class ZZLeftSide extends React.Component {
         className="left-side"
       >
         <div className="logo"><img src={crh} /></div>
-        <Menu 
-          theme="dark" 
-          defaultSelectedKeys={[defaultSelectedKeys]} 
-          mode="inline"
-          defaultOpenKeys={['2', '3', '4', '5', '6', '7']}
-        >
-          {this.buildMenu()}
-        </Menu>
+        <Scrollbars style={{ width: collapsed ? 80 : 200, height: 'calc(100vh - 50px)'}}>
+          <Menu 
+            theme="dark" 
+            defaultSelectedKeys={[defaultSelectedKeys]} 
+            mode="inline"
+            defaultOpenKeys={['2', '3', '4', '5', '6', '7']}
+          >
+            {this.buildMenu()}
+          </Menu>
+        </Scrollbars>
       </Sider>
     );
   }

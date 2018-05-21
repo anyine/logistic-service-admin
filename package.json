@@ -16,6 +16,7 @@
     "echarts": "^4.1.0",
     "html-to-draftjs": "^1.4.0",
     "rc-form": "^2.1.7",
+    "react-custom-scrollbars": "^4.2.1",
     "react-draft-wysiwyg": "^1.12.13",
     "react-redux": "^5.0.7",
     "react-router": "3.x",
