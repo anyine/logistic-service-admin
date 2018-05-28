@@ -80,12 +80,12 @@ const Menu = [
 		key: '2',
 		iconType: 'solution',
 		link: '',
-		label: '失物招领',
+		label: '便民信息',
 		children: [
             {
                 key: '2_1',
                 link: '/frame/lost/',
-                label: '失物招领列表'
+                label: '便民信息列表'
             }
         ]
 	}, {

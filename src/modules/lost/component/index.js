@@ -175,7 +175,7 @@ class EditNews extends React.Component {
 				});
 			}
 			notification.open({
-		        message: '失误招领信息更新成功！',
+		        message: '便民信息更新成功！',
 		        icon: <Icon type="smile-circle" style={{ color: '#108ee9' }} />,
 		    });
 		});
@@ -201,7 +201,7 @@ class EditNews extends React.Component {
       	<div className="breadcrumb-block">
 	    	<Breadcrumb>
 	            <Breadcrumb.Item>首页</Breadcrumb.Item>
-	            <Breadcrumb.Item>失物招领</Breadcrumb.Item>
+	            <Breadcrumb.Item>便民信息</Breadcrumb.Item>
 	        </Breadcrumb>
 	    </div>
 	    <Spin spinning={loading}>
