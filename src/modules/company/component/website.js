@@ -170,7 +170,11 @@ class OrderList extends React.Component {
     updateComCulture = (companyId) => {
         let param = {};
         param.companyId = companyId;
-        param.culture = JSON.stringify(convertToRaw(this.state.editorState_1.getCurrentContent()));
+        if(companyId === '1'){
+            param.culture = JSON.stringify(convertToRaw(this.state.editorState_1.getCurrentContent()));
+        }else if(companyId === '2') {
+            param.culture = JSON.stringify(convertToRaw(this.state.editorState_2.getCurrentContent()));
+        }
         ajax.postJSON(updateComCultureUrl, JSON.stringify(param), (data) => {
             if (data.success) {
                 notification.open({

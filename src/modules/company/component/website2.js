@@ -189,6 +189,13 @@ class Website2 extends React.Component {
     updateComCulture = (companyId) => {
         let param = {};
         param.companyId = companyId;
+        if(companyId === '3'){
+            param.culture = JSON.stringify(convertToRaw(this.state.editorState_1.getCurrentContent()));
+        }else if(companyId === '4') {
+            param.culture = JSON.stringify(convertToRaw(this.state.editorState_2.getCurrentContent()));
+        }else if(companyId === '5') {
+            param.culture = JSON.stringify(convertToRaw(this.state.editorState_3.getCurrentContent()));
+        }
         param.culture = JSON.stringify(convertToRaw(this.state.editorState_1.getCurrentContent()));
         ajax.postJSON(updateComCultureUrl, JSON.stringify(param), (data) => {
             if (data.success) {

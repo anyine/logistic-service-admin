@@ -24,13 +24,10 @@ class DishList extends React.Component {
                 <Link to={this.detailrouter(record.id)}>{text}</Link>
             )
         }, {
-            title: '菜品描述',
-            dataIndex: 'dish_content',
-            key: 'dish_content',
-        }, {
             title: '供餐时段',
             dataIndex: 'dish_type',
             key: 'dish_type',
+            width: 100,
         }, {
             title: '是否今日推荐',
             dataIndex: 'is_online',
@@ -286,7 +283,7 @@ class DishList extends React.Component {
     };
 
     return (
-    <div className="zui-content">
+    <div className="zui-content dishList">
         <div className="breadcrumb-block">
           <Breadcrumb>
             <Breadcrumb.Item>首页</Breadcrumb.Item>
@@ -307,7 +304,7 @@ class DishList extends React.Component {
                     <Divider />
                     <Tree
                         showLine
-                        defaultExpandAll
+                        defaultExpandAll={false}
                         onSelect={(selectedKeys, e) => {
                             this.onTypeSelect(selectedKeys, e, '1');
                         }}
