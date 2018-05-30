@@ -158,28 +158,34 @@ class DishList extends React.Component {
     }
 
     onOnlineChange = (record, value, index) => {
-        let {dataSource_1, dataSource_2} = this.state;
+        let {data_1, data_2} = this.state;
         let param = {};
         param.id = record.id;
         param.is_online = value.length > 0 ? 1 : 0;
         param.dish_week = value.join(',');
-        console.log('param === ', param);
         ajax.postJSON(onlineStateChangeUrl, param, (data) => {
-            if (record.companyId === '1') {
-                dataSource_1[index].is_online = param.is_online;
-                this.setState({
-                    dataSource_1
+            if(data.success){
+                if (record.companyId === '1') {
+                    _.find(data_1, {id: record.id}).dish_week = value.join(',');
+                    this.setState({
+                        data_1
+                    });
+                } else if (record.companyId === '2') {
+                    _.find(data_2, {id: record.id}).dish_week = value.join(',');
+                    this.setState({
+                        data_2
+                    });
+                }
+                notification.open({
+                    message: '更新菜品推荐成功！',
+                    icon: <Icon type="smile-circle" style={{color: '#108ee9'}}/>,
                 });
-            } else if (record.companyId === '2') {
-                dataSource_2[index].is_online = param.is_online;
-                this.setState({
-                    dataSource_2
+            }else {
+                notification.open({
+                    message: '更新菜品推荐失败！',
+                    icon: <Icon type="close-circle" style={{color: '#f5222d'}}/>,
                 });
             }
-            notification.open({
-                message: '更新菜品状态成功！',
-                icon: <Icon type="smile-circle" style={{color: '#108ee9'}}/>,
-            });
         });
     }
 
@@ -198,8 +204,6 @@ class DishList extends React.Component {
                 console.log('fullDate === ', fullDate);
                 data.map(function (item, index) {
                     item.key = index;
-                    if (item.is_online === 1 && item.update_time.substring(0, 10) !== fullDate)
-                        item.is_online = 0;
                     if (item.companyId === '1') {
                         dataSource_1.push(item);
                         treeData_1.map((tree_1) => {
@@ -326,15 +330,15 @@ class DishList extends React.Component {
 
     render() {
         const {treeData_1, treeData_2, dataSource_1, dataSource_2, data_1, data_2, loading} = this.state;
-        const today_data_1 = {
-            am: data_1.filter(item => item.dish_type === '早餐' && item.is_online === 1),
-            pm: data_1.filter(item => item.dish_type === '午餐' && item.is_online === 1),
-            nm: data_1.filter(item => item.dish_type === '晚餐' && item.is_online === 1)
+        const _today_data_1 = {
+            am: data_1.filter(item => item.dish_type === '早餐' && item.dish_week && item.dish_week.indexOf(new Date().getDay().toString()) > -1),
+            pm: data_1.filter(item => item.dish_type === '午餐' && item.dish_week && item.dish_week.indexOf(new Date().getDay().toString()) > -1),
+            nm: data_1.filter(item => item.dish_type === '晚餐' && item.dish_week && item.dish_week.indexOf(new Date().getDay().toString()) > -1),
         };
-        const today_data_2 = {
-            am: data_2.filter(item => item.dish_type === '早餐' && item.is_online === 1),
-            pm: data_2.filter(item => item.dish_type === '午餐' && item.is_online === 1),
-            nm: data_2.filter(item => item.dish_type === '晚餐' && item.is_online === 1)
+        const _today_data_2 = {
+            am: data_2.filter(item => item.dish_type === '早餐' && item.dish_week && item.dish_week.indexOf(new Date().getDay().toString()) > -1),
+            pm: data_2.filter(item => item.dish_type === '午餐' && item.dish_week && item.dish_week.indexOf(new Date().getDay().toString()) > -1),
+            nm: data_2.filter(item => item.dish_type === '晚餐' && item.dish_week && item.dish_week.indexOf(new Date().getDay().toString()) > -1),
         };
 
         return (
@@ -380,11 +384,11 @@ class DishList extends React.Component {
                                         <div style={{marginTop: 10, color: '#000', fontSize: 16}}>今日菜单</div>
                                         <Divider/>
                                         <Tabs defaultActiveKey="1">
-                                            <TabPane tab={<Badge count={today_data_1.am.length}><span>早餐</span></Badge>}
+                                            <TabPane tab={<Badge count={_today_data_1.am.length}><span>早餐</span></Badge>}
                                                      key="1">
                                                 <List
                                                     itemLayout="horizontal"
-                                                    dataSource={today_data_1.am}
+                                                    dataSource={_today_data_1.am}
                                                     renderItem={item => (
                                                         <List.Item>
                                                             <List.Item.Meta
@@ -398,11 +402,11 @@ class DishList extends React.Component {
                                                     )}
                                                 />
                                             </TabPane>
-                                            <TabPane tab={<Badge count={today_data_1.pm.length}><span>午餐</span></Badge>}
+                                            <TabPane tab={<Badge count={_today_data_1.pm.length}><span>午餐</span></Badge>}
                                                      key="2">
                                                 <List
                                                     itemLayout="horizontal"
-                                                    dataSource={today_data_1.pm}
+                                                    dataSource={_today_data_1.pm}
                                                     renderItem={item => (
                                                         <List.Item>
                                                             <List.Item.Meta
@@ -416,11 +420,11 @@ class DishList extends React.Component {
                                                     )}
                                                 />
                                             </TabPane>
-                                            <TabPane tab={<Badge count={today_data_1.nm.length}><span>晚餐</span></Badge>}
+                                            <TabPane tab={<Badge count={_today_data_1.nm.length}><span>晚餐</span></Badge>}
                                                      key="3">
                                                 <List
                                                     itemLayout="horizontal"
-                                                    dataSource={today_data_1.nm}
+                                                    dataSource={_today_data_1.nm}
                                                     renderItem={item => (
                                                         <List.Item>
                                                             <List.Item.Meta
@@ -466,11 +470,11 @@ class DishList extends React.Component {
                                         <div style={{marginTop: 10, color: '#000', fontSize: 16}}>今日菜单</div>
                                         <Divider/>
                                         <Tabs defaultActiveKey="1">
-                                            <TabPane tab={<Badge count={today_data_2.am.length}><span>早餐</span></Badge>}
+                                            <TabPane tab={<Badge count={_today_data_2.am.length}><span>早餐</span></Badge>}
                                                      key="1">
                                                 <List
                                                     itemLayout="horizontal"
-                                                    dataSource={today_data_2.am}
+                                                    dataSource={_today_data_2.am}
                                                     renderItem={item => (
                                                         <List.Item>
                                                             <List.Item.Meta
@@ -484,11 +488,11 @@ class DishList extends React.Component {
                                                     )}
                                                 />
                                             </TabPane>
-                                            <TabPane tab={<Badge count={today_data_2.pm.length}><span>午餐</span></Badge>}
+                                            <TabPane tab={<Badge count={_today_data_2.pm.length}><span>午餐</span></Badge>}
                                                      key="2">
                                                 <List
                                                     itemLayout="horizontal"
-                                                    dataSource={today_data_2.pm}
+                                                    dataSource={_today_data_2.pm}
                                                     renderItem={item => (
                                                         <List.Item>
                                                             <List.Item.Meta
@@ -502,11 +506,11 @@ class DishList extends React.Component {
                                                     )}
                                                 />
                                             </TabPane>
-                                            <TabPane tab={<Badge count={today_data_2.nm.length}><span>晚餐</span></Badge>}
+                                            <TabPane tab={<Badge count={_today_data_2.nm.length}><span>晚餐</span></Badge>}
                                                      key="3">
                                                 <List
                                                     itemLayout="horizontal"
-                                                    dataSource={today_data_2.nm}
+                                                    dataSource={_today_data_2.nm}
                                                     renderItem={item => (
                                                         <List.Item>
                                                             <List.Item.Meta

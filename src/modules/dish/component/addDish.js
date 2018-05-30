@@ -149,7 +149,7 @@ class AddDish extends React.Component {
 				            {...formItemLayout}
 				        >
 				        	{getFieldDecorator('dish_content', {
-			                    rules: [{ required: true, message: '菜品说明不能为空!' }],
+			                    rules: [{ required: false, message: '菜品说明不能为空!' }],
 			                })(
 				            	<Input.TextArea autosize={{minRows: 4, maxRows: 6}} />
 				           	)}
