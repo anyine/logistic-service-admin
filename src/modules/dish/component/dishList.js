@@ -81,7 +81,7 @@ class DishList extends React.Component {
                     <Option key={'4'}>星期四</Option>
                     <Option key={'5'}>星期五</Option>
                     <Option key={'6'}>星期六</Option>
-                    <Option key={'7'}>星期日</Option>
+                    <Option key={'0'}>星期日</Option>
                 </Select>
             )
         // }, {
