@@ -24,6 +24,7 @@ import BrandAdmin from '../modules/dish/component/brandAdmin';
 import Website from '../modules/company/component/website';
 import Website2 from '../modules/company/component/website2';
 import AddServiceAndHoliday from '../modules/company/component/addServiceAndHoliday';
+import EditServiceAndHoliday from '../modules/company/component/editServiceAndHoliday';
 import OrderDetailInfo from '../modules/company/component/orderDetailInfo';
 /* 宿舍公寓管理 */
 import PropertyInformation from '../modules/residence/component/propertyInformation';
@@ -58,6 +59,7 @@ module.exports = (
             <route path="company/website" component={Website} />
             <route path="company/webSiteResident" component={Website2} />
             <route path="company/addServiceAndHoliday" component={AddServiceAndHoliday} />
+            <route path="company/editServiceAndHoliday/:id" component={EditServiceAndHoliday} />
             <route path="company/orderDetailInfo/:id" component={OrderDetailInfo} />
             <route path="residence/propertyInformation" component={PropertyInformation} />
             <route path="residence/survey" component={ResidenceSurvey} />
