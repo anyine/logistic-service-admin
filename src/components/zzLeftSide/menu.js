@@ -74,6 +74,14 @@ const Menu = [
                 key: '5_4',
                 link: '/frame/residence/addHealthLife',
                 label: '新增健康生活信息'
+            }, {
+                key: '5_5',
+                link: '/frame/residence/ball',
+                label: '运动球馆管理'
+            }, {
+                key: '5_6',
+                link: '/frame/residence/addBall',
+                label: '新增球类信息'
             }
 		]
 	}, {

@@ -32,6 +32,9 @@ import ResidenceSurvey from '../modules/residence/component/survey';
 import HealthLife from '../modules/residence/component/healthLife';
 import AddHealthLife from '../modules/residence/component/addHealthLife';
 import EditResidenceHealth from '../modules/residence/component/editHealth';
+import Ball from '../modules/residence/component/ball';
+import AddBall from '../modules/residence/component/addBall';
+import EditBall from '../modules/residence/component/editBall';
 /* 训练段动态 */
 import LiveList from '../modules/live/component/liveList';
 import AddLive from '../modules/live/component/addLive';
@@ -66,6 +69,9 @@ module.exports = (
             <route path="residence/healthLife" component={HealthLife} />
             <route path="residence/addHealthLife" component={AddHealthLife} />
             <route path="residence/editHealth/:id" component={EditResidenceHealth} />
+            <route path="residence/ball" component={Ball} />
+            <route path="residence/addBall" component={AddBall} />
+            <route path="residence/editBall/:id" component={EditBall} />
             <route path="live/liveList" component={LiveList} />
             <route path="live/addLive" component={AddLive} />
             <route path="live/editLive/:id" component={EditLive} />

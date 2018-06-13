@@ -3,19 +3,16 @@ import {Link} from 'react-router';
 import {
     Row,
     Col,
-    Input,
     Tree,
     Table,
     Icon,
     List,
-    Switch,
     Divider,
     Breadcrumb,
     Badge,
     notification,
     Menu,
     Dropdown,
-    Popconfirm,
     Spin,
     Tabs,
     message,
@@ -26,7 +23,6 @@ import _ from 'lodash';
 import restUrl from 'RestUrl';
 import ajax from 'Utils/ajax';
 import '../dish.less';
-import index from "../../../reducers";
 
 const TabPane = Tabs.TabPane;
 const TreeNode = Tree.TreeNode;
@@ -53,17 +49,6 @@ class DishList extends React.Component {
             key: 'dish_type',
             width: 100,
         }, {
-        //     title: '是否今日推荐',
-        //     dataIndex: 'is_online',
-        //     key: 'is_online',
-        //     render: (text, record, index) => (
-        //         <Switch
-        //             checked={record.is_online ? true : false}
-        //             onChange={checked => {
-        //                 this.onOnlineChange(record, checked, index);
-        //             }}/>
-        //     )
-        // },{
             title: '推荐日期',
             dataIndex: 'dish_week',
             key: 'dish_week',
