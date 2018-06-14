@@ -89,6 +89,10 @@ class AddHealthLife extends React.Component {
                                             <Option value={'3'}>学生公寓1号</Option>
                                             <Option value={'4'}>学生公寓2号</Option>
                                             <Option value={'5'}>教师公寓</Option>
+                                            <Option value={'6'}>学生公寓3号</Option>
+                                            <Option value={'7'}>学生公寓4号</Option>
+                                            <Option value={'8'}>学生公寓5号</Option>
+                                            <Option value={'9'}>学生公寓6号</Option>
                                         </Select>
                                     )}
                                 </FormItem>
