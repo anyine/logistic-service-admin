@@ -5,30 +5,42 @@ import _ from 'lodash';
 import restUrl from 'RestUrl';
 import ajax from 'Utils/ajax';
 import '../residence.less';
+import {Modal} from "antd/lib/index";
 
 const getGymListUrl = restUrl.ADDR + 'survey/getGymList';
-const delHealthUrl = restUrl.ADDR + 'health/delHealth';
+const delBallUrl = restUrl.ADDR + 'survey/delBall';
 
 class HealthLifeList extends React.Component {
     constructor(props) {
         super(props);
 
         this.columns = [{
-            title: '菜品名称',
+            title: '运动名称',
             width: 130,
-            dataIndex: 'dish_title',
-            key: 'name',
-            render: (text, record, index) => (
-                <Link to={this.editrouter(record.id)}>{text}</Link>
-            )
-        }, {
-            title: '供餐时段',
-            dataIndex: 'dish_type',
-            key: 'dish_type',
-            width: 100,
+            dataIndex: 'ball_type',
+            key: 'ball_type',
+            render: (text, record, index) => {
+                let name;
+                if(record.ball_type === '1'){
+                    name = '羽毛球馆';
+                }else if(record.ball_type === '2'){
+                    name = '足球场';
+                }else if(record.ball_type === '3'){
+                    name = '篮球馆';
+                }else if(record.ball_type === '4'){
+                    name = '台球室';
+                }else if(record.ball_type === '5'){
+                    name = '乒乓球馆';
+                }else if(record.ball_type === '6'){
+                    name = '健身馆';
+                }else if(record.ball_type === '7'){
+                    name = '瑜伽馆';
+                }
+                return (
+                <Link to={this.editrouter(record.id)}>{name}</Link>
+            )}
         }, {
             title: '创建日期',
-            width: 110,
             dataIndex: 'create_time',
             key: 'create_time',
             render: (text, record, index) => (
@@ -37,8 +49,6 @@ class HealthLifeList extends React.Component {
         }, {
             title: <a><Icon type="setting" style={{fontSize: 18}}/></a>,
             key: 'operation',
-            fixed: 'right',
-            width: 100,
             render: (text, record, index) => (
                 <Dropdown
                     overlay={
@@ -95,22 +105,30 @@ class HealthLifeList extends React.Component {
         return `/frame/residence/editBall/${id}`
     }
 
-    delHealth = id => {
-        this.setState({
-            loading: true
-        });
-        let param = {};
-        param.id = id;
-        ajax.postJSON(delHealthUrl, JSON.stringify(param), data => {
-            if (data.success) {
-                this.setState({
-                    loading: false
-                }, () => {
-                    this.getList();
+    onDelete = (key) => {
+        let {dataSource} = this.state;
+        Modal.confirm({
+            title: '提示',
+            content: '确认要删除吗？',
+            okText: '确认',
+            cancelText: '取消',
+            onOk: () => {
+                let param = {};
+                param.id = key;
+                ajax.postJSON(delBallUrl, JSON.stringify(param), data => {
+                    if (data.success) {
+                        notification.open({
+                            message: '删除成功！',
+                            icon: <Icon type="smile-circle" style={{color: '#108ee9'}}/>,
+                        });
+                        dataSource = dataSource.filter((item) => item.id !== key);
+                        this.setState({
+                            dataSource
+                        });
+                    } else {
+                        message.warning(data.backMsg);
+                    }
                 });
-
-            } else {
-
             }
         });
     }
