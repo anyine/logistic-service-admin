@@ -8,8 +8,9 @@ import Frame from '../modules/Frame';
 import Home from '../modules/home/component/home';
 /* 登录 */
 import Login from '../modules/login/component/login';
-/* 失物招领 */
+/* 便民信息 */
 import Lost from '../modules/lost/component/';
+import Need from '../modules/lost/component/need';
 /* 菜单管理 */
 import DishList from '../modules/dish/component/dishList';
 import DishDetailInfo from '../modules/dish/component/dishDetailInfo';
@@ -50,6 +51,7 @@ module.exports = (
             <IndexRoute component={Home}/>
             <route path="home" component={Home} />
             <route path="lost" component={Lost} />
+            <route path="need" component={Need} />
             <route path="dish/dishList" component={DishList} />
             <route path="dish/dishDetailInfo/:id" component={DishDetailInfo} />
             <route path="dish/editDish/:id" component={EditDish} />

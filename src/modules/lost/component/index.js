@@ -74,8 +74,6 @@ class EditNews extends React.Component {
             data.map((item, index) => {
                 if (item.lost_content && item.lost_content !== '') {
                     item.lost_content = draftToHtml(JSON.parse(item.lost_content));
-                    console.log('companyId === ', item.companyId);
-                    console.log('lost_content === ', item.lost_content);
                     const contentBlock = htmlToDraft(item.lost_content);
                     const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
                     const editorState = EditorState.createWithContent(contentState);
@@ -223,7 +221,6 @@ class EditNews extends React.Component {
                 submitLoading_9: true
             });
         }
-        console.log('param === ', param);
         ajax.postJSON(saveLostUrl, JSON.stringify(param), (data) => {
             if (companyId === '1') {
                 this.setState({

@@ -321,7 +321,7 @@ class Website2 extends React.Component {
                 <div className="ibox-content">
                     <Spin spinning={loading}>
                         <Tabs defaultActiveKey="1">
-                            <TabPane tab="学生公寓1号官网" key="1">
+                            <TabPane tab="学生公寓1号官网" key="1" forceRender={true}>
                                 <Tabs defaultActiveKey="1_1">
                                     <TabPane tab="企业文化" key="1_1">
                                         <ZZEditor editorState={editorState_1} companyId={'3'}
@@ -369,7 +369,7 @@ class Website2 extends React.Component {
                                     </TabPane>
                                 </Tabs>
                             </TabPane>
-                            <TabPane tab="学生公寓2号官网" key="2">
+                            <TabPane tab="学生公寓2号官网" key="2" forceRender={true}>
                                 <Tabs defaultActiveKey="1_1">
                                     <TabPane tab="企业文化" key="1_1">
                                         <ZZEditor editorState={editorState_2} companyId={'4'}
@@ -417,7 +417,7 @@ class Website2 extends React.Component {
                                     </TabPane>
                                 </Tabs>
                             </TabPane>
-                            <TabPane tab="教师公寓官网" key="3">
+                            <TabPane tab="教师公寓官网" key="3" forceRender={true}>
                                 <Tabs defaultActiveKey="1_1">
                                     <TabPane tab="企业文化" key="1_1">
                                         <ZZEditor editorState={editorState_3} companyId={'5'}

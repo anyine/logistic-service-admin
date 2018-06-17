@@ -93,7 +93,11 @@ const Menu = [
             {
                 key: '2_1',
                 link: '/frame/lost/',
-                label: '便民信息列表'
+                label: '便民服务'
+            }, {
+                key: '2_2',
+                link: '/frame/need/',
+                label: '提出你的需求'
             }
         ]
 	}, {

@@ -295,7 +295,7 @@ class OrderList extends React.Component {
                 <div className="ibox-content">
                     <Spin spinning={loading}>
                         <Tabs defaultActiveKey="1">
-                            <TabPane tab="一楼食堂官网" key="1">
+                            <TabPane tab="一楼食堂官网" key="1" forceRender={true}>
                                 <Tabs defaultActiveKey="1_1">
                                     <TabPane tab="企业文化" key="1_1">
                                         <ZZEditor editorState={editorState_1} companyId={'1'}
@@ -343,7 +343,7 @@ class OrderList extends React.Component {
                                     </TabPane>
                                 </Tabs>
                             </TabPane>
-                            <TabPane tab="二楼食堂官网" key="2">
+                            <TabPane tab="二楼食堂官网" key="2" forceRender={true}>
                                 <Tabs defaultActiveKey="1_1">
                                     <TabPane tab="企业文化" key="1_1">
                                         <ZZEditor editorState={editorState_2} companyId={'2'}
