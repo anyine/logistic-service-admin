@@ -58,6 +58,9 @@ const ballList = [
     }, {
         value: '7',
         name: '瑜伽馆'
+    }, {
+        value: '8',
+        name: '网球场'
     }
 ];
 
